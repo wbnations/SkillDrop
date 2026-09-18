@@ -10,7 +10,7 @@ Each Drop goes beyond passive consumption. It can include a short practice task 
 
 The experience is instrumented across the full loop: content-led signup, practice completion, return behavior, peer sharing, organizational spread, application, and longer-term perceived value. SkillDrop turns ASN content into a measurable path from immediate learning, to behavior change, to potential business impact.
 
-**SkillDrop: Skill at your pace. Stay in your flow.**
+**SkillDrop: Makes learning measurable, by making it useful first.**
 
 ## Current demo
 
