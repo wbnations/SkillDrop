@@ -95,6 +95,7 @@
     .skilldrop h2 { font-size: 18px; margin: 0 0 4px; }
     .skilldrop p { margin: 0 0 12px; color: var(--cp-text-muted); }
     .skilldrop button { border: 0; border-radius: 0.625rem; background: var(--cp-accent); color: var(--cp-accent-fg); padding: 8px 13px; font-weight: 650; }
+    .skilldrop-complete { display: inline-flex; align-items: center; gap: 6px; margin: 8px 0 12px; padding: 6px 10px; border: 1px solid var(--cp-success); border-radius: 999px; color: var(--cp-success); background: rgba(22, 163, 74, 0.08); font-weight: 650; font-size: 13px; }
     .wrap-card { text-align: center; padding: 60px 30px; }
     .wrap-card h1 { margin: 0 auto 18px; max-width: 620px; }
     .wrap-card p { margin: 0 auto 18px; max-width: 680px; color: var(--cp-text-muted); }
@@ -132,9 +133,13 @@
     .center-title { text-align: center; margin: 0 0 40px !important; font-size: 22px !important; }
     .browse-section { margin: 36px 0; }
     .browse-card { border: 1px solid var(--cp-border); border-radius: 8px; background: var(--cp-surface); padding: 14px; margin: 16px 0; min-height: 147px; }
+    .browse-card.demo-path-card { border: 1px solid var(--cp-accent); box-shadow: 0 0 0 3px var(--cp-accent-soft); }
     .recommendations { display: flex; gap: 20px; overflow: hidden; }
     .recommendations .browse-card { flex: 0 0 350px; min-height: 393px; padding: 0; overflow: hidden; }
-    .recommendations .browse-card img { display: block; width: 100%; height: 200px; object-fit: cover; }
+    .recommendations .browse-card img, .copilot-thumb { display: block; width: 100%; height: 200px; object-fit: cover; }
+    .copilot-thumb { display: grid; place-items: center; background: radial-gradient(circle at 25% 20%, rgba(116, 79, 255, 0.75), transparent 32%), radial-gradient(circle at 72% 28%, rgba(25, 200, 255, 0.64), transparent 30%), radial-gradient(circle at 65% 78%, rgba(45, 212, 191, 0.56), transparent 32%), linear-gradient(135deg, #111827, #030712); }
+    .copilot-logo-mark { width: 86px; height: 86px; border-radius: 28px; background: conic-gradient(from 210deg, #8b5cf6, #06b6d4, #22c55e, #f59e0b, #ec4899, #8b5cf6); box-shadow: 0 18px 50px rgba(0,0,0,0.35); position: relative; }
+    .copilot-logo-mark::after { content: ""; position: absolute; inset: 17px; border-radius: 18px; background: #0b1020; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.14); }
     .recommendations .browse-card h3, .recommendations .browse-card .meta, .recommendations .browse-card button { margin-left: 14px; margin-right: 14px; }
     .recommendations .browse-card h3 { margin-top: 18px; }
     .streak { display: flex; margin-left: auto; width: 390px; border-radius: 28px; overflow: hidden; background: linear-gradient(110deg,#eadff2,#f8d3bf,#f8ecbf); }
@@ -177,13 +182,21 @@
     .link-button.primary { background: var(--cp-accent); border-color: var(--cp-accent); color: var(--cp-accent-fg); }
     .demo-callout, .loyalty-card, .choice-help, .results-form, .admin-panel { border: 1px solid var(--cp-border); border-radius: 16px; background: var(--cp-accent-soft); padding: 16px; }
     .demo-callout { margin: 24px 0; border-left: 4px solid var(--cp-accent); }
+    .demo-instruction { margin: 24px 0; padding: 14px 16px; border: 1px solid var(--cp-border); border-left: 4px solid var(--cp-accent); border-radius: 12px; background: var(--cp-accent-soft); color: var(--cp-text); }
+    .demo-instruction strong { display: block; margin-bottom: 4px; color: var(--cp-accent); }
     .demo-callout strong, .loyalty-card strong { display: block; margin-bottom: 4px; }
     .choice-help { margin-top: 18px; background: var(--cp-surface-soft); }
+    details.choice-help, details.prompt-preview { padding: 0; }
+    details.choice-help summary, details.prompt-preview summary { cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 16px; font-weight: 700; list-style: none; }
+    details.choice-help summary::-webkit-details-marker, details.prompt-preview summary::-webkit-details-marker { display: none; }
+    details.choice-help summary::after, details.prompt-preview summary::after { content: "Expand"; color: var(--cp-accent); font-size: 13px; font-weight: 650; }
+    details.choice-help[open] summary::after, details.prompt-preview[open] summary::after { content: "Collapse"; }
+    details.choice-help .choice-help-body { padding: 0 16px 16px; }
     .choice-help h3 { margin: 0 0 8px; }
     .loyalty-card { margin-top: 18px; }
     .points-badge { display: inline-flex; align-items: center; min-height: 28px; padding: 4px 10px; border-radius: 999px; background: var(--cp-accent); color: var(--cp-accent-fg); font-weight: 650; }
     .prompt-preview { margin-top: 18px; border: 1px solid var(--cp-border); border-radius: 16px; background: var(--cp-panel-strong); overflow: hidden; }
-    .prompt-preview header { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 16px; border-bottom: 1px solid var(--cp-border); background: var(--cp-surface-soft); }
+    .prompt-preview header, .prompt-preview summary { border-bottom: 1px solid var(--cp-border); background: var(--cp-surface-soft); }
     .prompt-preview h3 { margin: 0; font-size: 16px; font-weight: 700; }
     .prompt-preview .prompt-body { display: grid; gap: 12px; padding: 16px; }
     .prompt-section { border-left: 3px solid var(--cp-accent); padding-left: 12px; }
@@ -193,6 +206,8 @@
     .prompt-question span { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: var(--cp-accent); color: var(--cp-accent-fg); font-weight: 700; }
     .prompt-question b { display: block; margin-bottom: 2px; font-weight: 700; }
     .prompt-question p { margin: 0; color: var(--cp-text-muted); }
+    .prompt-options { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+    .prompt-options em { display: inline-flex; padding: 3px 8px; border: 1px solid var(--cp-border); border-radius: 999px; background: var(--cp-surface-soft); color: var(--cp-text-muted); font-style: normal; font-size: 12px; }
     .results-form { display: grid; gap: 14px; margin-top: 18px; }
     .results-form label { font-weight: 650; }
     .results-form select, .results-form textarea { width: 100%; border: 1px solid var(--cp-border); border-radius: 0.625rem; background: var(--cp-surface); color: var(--cp-text); font: inherit; padding: 10px 12px; }
@@ -250,7 +265,7 @@
     <main class="browse-main"><div class="notice"><span><strong>ⓘ　Profile changes are here</strong><br>Manage your profile details in one place in AI Skills Navigator.</span><button>Find out more</button><button>×</button></div><div class="browse-shell">
       <div style="display:flex;align-items:flex-end;gap:30px"><h1>Welcome back, what do you want to learn today?</h1><div class="streak"><div><img src="https://aiskillsnavigator.microsoft.com/gamification/streak-fire.png" alt=""><strong>1 week</strong><small>Current streak</small></div><div><img src="https://aiskillsnavigator.microsoft.com/gamification/streak-trophy.png" alt=""><strong>1 week</strong><small>Best streak</small></div></div></div>
       <div class="demo-callout"><strong>SkillDrop demo path</strong>Start this recommended Copilot module, then navigate to <strong>Unit 3: Explore Copilot experiences</strong>. That is where SkillDrop appears and turns the lesson into a contextual Copilot coaching flow.</div>
-      <section class="browse-section"><h2>Recommendations tailored to your learning</h2><div class="recommendations"><div class="browse-card" data-route="#player" style="cursor:pointer"><img src="https://learn.microsoft.com/en-us/training/wwl/business-value-microsoft-copilot-solutions/media/03-copilot-chat-summary.png" alt=""><div class="meta">Demo path · Module · 38 mins · Microsoft Copilot</div><h3>Drive business value with Microsoft Copilot solutions</h3><button class="secondary" data-route="#player">▣ Start demo module</button></div><div class="browse-card"><img src="https://img.youtube.com/vi/bIAEvYi0yoU/hqdefault.jpg" alt=""><div class="meta">Video · 1 min</div><h3>Summarize and triage customer issues daily with Copilot</h3><button class="secondary">▣ Video</button></div><div class="browse-card"><img src="https://img.youtube.com/vi/QZgbuRKDjf8/maxresdefault.jpg" alt=""><div class="meta">Video · 1 min</div><h3>Create marketing copy aligned to storybook voice and tone with Copilot</h3><button class="secondary">▣ Video</button></div><div class="browse-card"><img src="https://img.youtube.com/vi/f0X05b-MAwY/maxresdefault.jpg" alt=""><div class="meta">Video · 9 mins</div><h3>Microsoft Excel just got more powerful | Agent Mode, Copilot Function &amp; Formula AI</h3><button class="secondary">▣ Video</button></div></div></section>
+      <section class="browse-section"><h2>Recommendations tailored to your learning</h2><div class="recommendations"><div class="browse-card demo-path-card" data-route="#player" style="cursor:pointer"><div class="copilot-thumb" role="img" aria-label="Copilot logo on a dark background"><div class="copilot-logo-mark"></div></div><div class="meta">Demo path · Module · 38 mins · Microsoft Copilot</div><h3>Drive business value with Microsoft Copilot solutions</h3><button class="secondary" data-route="#player">▣ Start demo module</button></div><div class="browse-card"><img src="https://img.youtube.com/vi/bIAEvYi0yoU/hqdefault.jpg" alt=""><div class="meta">Video · 1 min</div><h3>Summarize and triage customer issues daily with Copilot</h3><button class="secondary">▣ Video</button></div><div class="browse-card"><img src="https://img.youtube.com/vi/QZgbuRKDjf8/maxresdefault.jpg" alt=""><div class="meta">Video · 1 min</div><h3>Create marketing copy aligned to storybook voice and tone with Copilot</h3><button class="secondary">▣ Video</button></div><div class="browse-card"><img src="https://img.youtube.com/vi/f0X05b-MAwY/maxresdefault.jpg" alt=""><div class="meta">Video · 9 mins</div><h3>Microsoft Excel just got more powerful | Agent Mode, Copilot Function &amp; Formula AI</h3><button class="secondary">▣ Video</button></div></div></section>
       <section class="browse-section"><h2>Pick up where you left off</h2><div class="browse-card"><h3>Drive business value with Microsoft Copilot solutions</h3><div class="meta">Progress: 25%</div><div class="progress"><span style="width:25%"></span></div><button class="secondary" data-route="#player">Resume module</button></div></section>
       <div class="footer">Privacy &amp; Cookies　 Terms of Use　 Trademark　 © Microsoft 2026</div>
     </div></main>
@@ -282,22 +297,24 @@
           <p id="dropFeedback" class="status"></p>
           <h2>Apply it now</h2>
           <p>Think of a client or stakeholder conversation this week. What quick summary would help you walk in better prepared?</p>
-          <div class="choice-help">
-            <h3>Which do I choose?</h3>
-            <p><strong>Copy prompt</strong> is fastest. Paste it into Copilot to make this module contextual to your own meeting, client call, or decision.</p>
-            <p><strong>Download skill file</strong> is more durable. Use it when you want to keep, share, or reuse the SkillDrop as a structured artifact.</p>
-          </div>
-          <div class="prompt-preview">
-            <header><h3>Prompt preview</h3><span class="points-badge">Copies formatted coaching prompt</span></header>
+          <details class="choice-help">
+            <summary>Which do I choose?</summary>
+            <div class="choice-help-body">
+              <p><strong>Copy prompt</strong> is fastest. Paste it into Copilot to make this module contextual to your own meeting, client call, or decision.</p>
+              <p><strong>Download skill file</strong> is more durable. Use it when you want to keep, share, or reuse the SkillDrop as a structured artifact.</p>
+            </div>
+          </details>
+          <details class="prompt-preview">
+            <summary><span>Prompt preview</span><span class="points-badge">Copies formatted coaching prompt</span></summary>
             <div class="prompt-body">
               <div class="prompt-section"><strong>Role</strong><p>Run this SkillDrop as an interactive Copilot coaching experience.</p></div>
               <div class="prompt-section"><strong>Learning context</strong><p>Drive business value with Microsoft Copilot solutions, Unit 3: Explore Copilot experiences.</p></div>
-              <div class="prompt-question"><span>1</span><div><b>Question 1: Work moment</b><p>What upcoming conversation, meeting, client call, or stakeholder check-in are you preparing for?</p></div></div>
-              <div class="prompt-question"><span>2</span><div><b>Question 2: Outcome</b><p>What decision or outcome do you need to be ready for?</p></div></div>
-              <div class="prompt-question"><span>3</span><div><b>Question 3: Sources</b><p>Which reports, emails, meeting notes, or files should Copilot summarize?</p></div></div>
-              <div class="prompt-question"><span>4</span><div><b>Question 4: Trust signal</b><p>What would make the result useful enough to trust or act on?</p></div></div>
+              <div class="prompt-question"><span>1</span><div><b>Question 1: Work moment</b><p>What are you preparing for?</p><div class="prompt-options"><em>Client call</em><em>Stakeholder update</em><em>Team meeting</em><em>Decision review</em><em>Something else</em></div></div></div>
+              <div class="prompt-question"><span>2</span><div><b>Question 2: Outcome</b><p>What do you need to be ready to do?</p><div class="prompt-options"><em>Explain performance</em><em>Recommend action</em><em>Answer objections</em><em>Align next steps</em><em>Something else</em></div></div></div>
+              <div class="prompt-question"><span>3</span><div><b>Question 3: Sources</b><p>What should Copilot summarize?</p><div class="prompt-options"><em>Reports</em><em>Emails</em><em>Meeting notes</em><em>Files</em><em>Something else</em></div></div></div>
+              <div class="prompt-question"><span>4</span><div><b>Question 4: Trust signal</b><p>What would make the result useful enough to act on?</p><div class="prompt-options"><em>Cites sources</em><em>Shows trends</em><em>Flags gaps</em><em>Gives next steps</em><em>Something else</em></div></div></div>
             </div>
-          </div>
+          </details>
           <div class="loyalty-card">
             <strong>Frontier Path Loyalty</strong>
             <span class="points-badge">+50 copy prompt</span> <span class="points-badge">+75 download skill file</span> <span class="points-badge">+250 submit results</span> <span class="points-badge">+100 share</span>
@@ -481,20 +498,20 @@
         title: "Introduction",
         objective: "Understand how Copilot helps organizations rethink everyday work and unlock efficiency, insight, and innovation.",
         quote: "Copilot brings AI-powered assistance directly into the Microsoft 365 apps your organization already relies on.",
-        body: `<p>As AI rapidly moves from theory to practice, Microsoft Copilot is at the forefront of this shift. No longer just a tool for automating simple tasks, Copilot is designed to help organizations rethink how work gets done—unlocking new levels of efficiency, insight, and innovation.</p><p>As a business leader, you face constant pressure to achieve more with limited resources, respond to changing markets, and help your teams concentrate on high-priority work.</p><p>In this module, you explore what sets Copilot apart from traditional productivity tools and see how Copilot solutions can be mapped to real business scenarios.</p><div class="quote">Tip: Consider how Copilot could help your organization reduce manual effort, improve consistency, and accelerate business outcomes.</div>`
+        body: `<div class="demo-instruction"><strong>Demo instruction</strong>You are starting a module about how Copilot solutions drive business value. This first unit frames why Copilot matters: it helps organizations rethink work, reduce manual effort, and connect AI capabilities to real business outcomes.</div><p>As AI rapidly moves from theory to practice, Microsoft Copilot is at the forefront of this shift. No longer just a tool for automating simple tasks, Copilot is designed to help organizations rethink how work gets done—unlocking new levels of efficiency, insight, and innovation.</p><p>As a business leader, you face constant pressure to achieve more with limited resources, respond to changing markets, and help your teams concentrate on high-priority work.</p><p>In this module, you explore what sets Copilot apart from traditional productivity tools and see how Copilot solutions can be mapped to real business scenarios.</p><div class="quote">Tip: Consider how Copilot could help your organization reduce manual effort, improve consistency, and accelerate business outcomes.</div>`
       },
       {
         title: "Explore Copilot solutions",
         objective: "Compare Copilot Chat, Microsoft Copilot, and Copilot Studio as business solutions.",
         quote: "Copilot is not one-size-fits-all. Each solution addresses different organizational needs.",
-        body: `<p>Microsoft Copilot is more than a tool for common tasks—it is a way to simplify complex work. By combining generative AI with organizational data, Copilot reduces time spent on routine activities like drafting reports or analyzing spreadsheets.</p><h2>Overview of Copilot solutions</h2><ul><li><strong>Microsoft Copilot Chat</strong> delivers quick, context-aware answers from organizational data.</li><li><strong>Microsoft Copilot</strong> works across Word, Excel, PowerPoint, Outlook, and Teams.</li><li><strong>Microsoft Copilot Studio</strong> helps businesses tailor AI to unique workflows without heavy development investment.</li></ul><h2>Key benefits for organizations</h2><ul><li>Boost productivity by automating repetitive tasks.</li><li>Improve decision quality with data-driven insights.</li><li>Strengthen governance with enterprise-grade compliance.</li></ul>`
+        body: `<div class="demo-instruction"><strong>Demo instruction</strong>This unit compares Copilot solution types. Continue through it so the demo can land on Unit 3, where the learner moves from understanding the solution landscape to trying a specific Copilot Chat concept in their own work context.</div><p>Microsoft Copilot is more than a tool for common tasks—it is a way to simplify complex work. By combining generative AI with organizational data, Copilot reduces time spent on routine activities like drafting reports or analyzing spreadsheets.</p><h2>Overview of Copilot solutions</h2><ul><li><strong>Microsoft Copilot Chat</strong> delivers quick, context-aware answers from organizational data.</li><li><strong>Microsoft Copilot</strong> works across Word, Excel, PowerPoint, Outlook, and Teams.</li><li><strong>Microsoft Copilot Studio</strong> helps businesses tailor AI to unique workflows without heavy development investment.</li></ul><h2>Key benefits for organizations</h2><ul><li>Boost productivity by automating repetitive tasks.</li><li>Improve decision quality with data-driven insights.</li><li>Strengthen governance with enterprise-grade compliance.</li></ul>`
       },
       {
         title: "Explore Copilot experiences",
         objective: "See how Copilot Chat and Microsoft 365 Copilot experiences bring context-aware help into daily work.",
         quote: "Copilot does not live in one place—it is woven into the tools your organization already uses every day.",
         skilldrop: true,
-        body: `<p>Copilot doesn’t live in one place—it’s woven into the tools your organization already uses every day. Let’s explore the different experiences, why they matter for business outcomes, and how they support collaboration and efficiency at scale.</p><h2>Copilot Chat: fast answers and organizational context</h2><p>Copilot Chat offers a conversational interface on web and mobile that delivers quick, context-aware responses grounded in your organization’s data. It helps teams stay agile by providing instant access to relevant information without switching between apps.</p><ul><li>Improves agility by giving employees instant access to organizational knowledge without switching apps.</li><li>Supports mobile work scenarios, ensuring decisions don’t stall when teams are on the move.</li></ul><h2>Example scenario</h2><p>Imagine a regional manager needs a summary of last quarter’s performance before a client call. Copilot Chat pulls data from reports and emails, delivering a concise, accurate summary in seconds.</p><h2>Copilot in Microsoft 365 apps: embedded intelligence for everyday work</h2><p>Copilot is more than an added feature—it’s an integrated capability that brings AI-powered assistance into the apps your organization relies on every day.</p><ul><li><strong>Accelerates workflows:</strong> Cuts down repetitive tasks so teams can deliver faster.</li><li><strong>Raises quality standards:</strong> Ensures documents, presentations, and communications meet brand and compliance guidelines.</li><li><strong>Drives consistency:</strong> Keeps messaging and formatting aligned across departments.</li></ul>`,
+        body: `<div class="demo-instruction"><strong>Demo instruction</strong>This is the SkillDrop moment. The learner sees the option to try the Copilot Chat concept for themselves by copying the provided prompt or downloading the reusable skill file.</div><p>Copilot doesn’t live in one place—it’s woven into the tools your organization already uses every day. Let’s explore the different experiences, why they matter for business outcomes, and how they support collaboration and efficiency at scale.</p><h2>Copilot Chat: fast answers and organizational context</h2><p>Copilot Chat offers a conversational interface on web and mobile that delivers quick, context-aware responses grounded in your organization’s data. It helps teams stay agile by providing instant access to relevant information without switching between apps.</p><ul><li>Improves agility by giving employees instant access to organizational knowledge without switching apps.</li><li>Supports mobile work scenarios, ensuring decisions don’t stall when teams are on the move.</li></ul><h2>Example scenario</h2><p>Imagine a regional manager needs a summary of last quarter’s performance before a client call. Copilot Chat pulls data from reports and emails, delivering a concise, accurate summary in seconds.</p><h2>Copilot in Microsoft 365 apps: embedded intelligence for everyday work</h2><p>Copilot is more than an added feature—it’s an integrated capability that brings AI-powered assistance into the apps your organization relies on every day.</p><ul><li><strong>Accelerates workflows:</strong> Cuts down repetitive tasks so teams can deliver faster.</li><li><strong>Raises quality standards:</strong> Ensures documents, presentations, and communications meet brand and compliance guidelines.</li><li><strong>Drives consistency:</strong> Keeps messaging and formatting aligned across departments.</li></ul>`,
         drop: {
           question: "What is the biggest business value in the regional manager scenario?",
           choices: ["A faster, context-aware summary before the client call", "A longer report with every source copied in", "A new place to manually search for documents"],
@@ -545,18 +562,20 @@
     function render() {
       const unit = units[current];
       document.getElementById("nowPlaying").textContent = `Now Playing: ${unit.title} (Unit ${current + 1}/${units.length})`;
-      const skilldropMarkup = unit.skilldrop ? `<section class="skilldrop"><h2>SkillDrop</h2><p>Bring this concept into my work context with Copilot. Choose the fast prompt path or download the skill file for more permanent reuse.</p><div class="drop-actions"><button class="link-button primary" id="dropCopyPrompt" type="button">Copy Copilot prompt</button><a class="link-button" id="dropSkillFile" href="skills/SkillDrop_CopilotChat.md" download>Download skill file</a><a class="link-button hidden" id="dropOpenCopilot" href="https://copilot.cloud.microsoft/chat/" target="_blank" rel="noreferrer">Open Copilot</a></div><div class="prompt-preview"><header><h3>Prompt preview</h3><span class="points-badge">Formatted coaching flow</span></header><div class="prompt-body"><div class="prompt-section"><strong>Role</strong><p>Run this SkillDrop as an interactive Copilot coaching experience.</p></div><div class="prompt-section"><strong>Learning context</strong><p>Drive business value with Microsoft Copilot solutions, Unit 3: Explore Copilot experiences.</p></div><div class="prompt-question"><span>1</span><div><b>Question 1: Work moment</b><p>What upcoming conversation, meeting, client call, or stakeholder check-in are you preparing for?</p></div></div><div class="prompt-question"><span>2</span><div><b>Question 2: Outcome</b><p>What decision or outcome do you need to be ready for?</p></div></div><div class="prompt-question"><span>3</span><div><b>Question 3: Sources</b><p>Which reports, emails, meeting notes, or files should Copilot summarize?</p></div></div><div class="prompt-question"><span>4</span><div><b>Question 4: Trust signal</b><p>What would make the result useful enough to trust or act on?</p></div></div></div></div><div class="choice-help"><h3>Which do I choose?</h3><p><strong>Copy prompt</strong> if you want the fastest path: paste it into Copilot and make this module contextual to your current meeting, client call, or stakeholder decision.</p><p><strong>Skill file</strong> if you want a reusable artifact: upload or save it so the same SkillDrop can be shared, reused, or standardized later.</p></div><div class="loyalty-card"><strong>Frontier Path Loyalty</strong><span class="points-badge">+50 prompt points</span> <span class="points-badge">+75 skill-file points</span><p>Earn 250 Frontier Points when you return and share your results back to ASN. Earn 100 more when you share the Drop with a colleague.</p></div><span id="dropStatus" class="status">${skillDropStatus}</span></section>` : "";
+      const skilldropComplete = localStorage.getItem("skilldrop:unit3Complete") === "true";
+      const skilldropCompleteMarkup = skilldropComplete ? `<div class="skilldrop-complete">✓ SkillDrop complete</div><p>Results submitted back to ASN. Continue to Unit 4 to finish the demo and review captured data.</p>` : "";
+      const skilldropMarkup = unit.skilldrop ? `<section class="skilldrop"><h2>SkillDrop</h2>${skilldropCompleteMarkup}<p>Bring this concept into my work context with Copilot. Choose the fast prompt path or download the skill file for more permanent reuse.</p><div class="drop-actions"><button class="link-button primary" id="dropCopyPrompt" type="button">Copy Copilot prompt</button><a class="link-button" id="dropSkillFile" href="skills/SkillDrop_CopilotChat.md" download>Download skill file</a><a class="link-button hidden" id="dropOpenCopilot" href="https://copilot.cloud.microsoft/chat/" target="_blank" rel="noreferrer">Open Copilot</a></div><details class="prompt-preview"><summary><span>Prompt preview</span><span class="points-badge">Formatted coaching flow</span></summary><div class="prompt-body"><div class="prompt-section"><strong>Role</strong><p>Run this SkillDrop as an interactive Copilot coaching experience.</p></div><div class="prompt-section"><strong>Learning context</strong><p>Drive business value with Microsoft Copilot solutions, Unit 3: Explore Copilot experiences.</p></div><div class="prompt-question"><span>1</span><div><b>Question 1: Work moment</b><p>What are you preparing for?</p><div class="prompt-options"><em>Client call</em><em>Stakeholder update</em><em>Team meeting</em><em>Decision review</em><em>Something else</em></div></div></div><div class="prompt-question"><span>2</span><div><b>Question 2: Outcome</b><p>What do you need to be ready to do?</p><div class="prompt-options"><em>Explain performance</em><em>Recommend action</em><em>Answer objections</em><em>Align next steps</em><em>Something else</em></div></div></div><div class="prompt-question"><span>3</span><div><b>Question 3: Sources</b><p>What should Copilot summarize?</p><div class="prompt-options"><em>Reports</em><em>Emails</em><em>Meeting notes</em><em>Files</em><em>Something else</em></div></div></div><div class="prompt-question"><span>4</span><div><b>Question 4: Trust signal</b><p>What would make the result useful enough to act on?</p><div class="prompt-options"><em>Cites sources</em><em>Shows trends</em><em>Flags gaps</em><em>Gives next steps</em><em>Something else</em></div></div></div></div></details><details class="choice-help"><summary>Which do I choose?</summary><div class="choice-help-body"><p><strong>Copy prompt</strong> if you want the fastest path: paste it into Copilot and make this module contextual to your current meeting, client call, or decision.</p><p><strong>Skill file</strong> if you want a reusable artifact: upload or save it so the same SkillDrop can be shared, reused, or standardized later.</p></div></details><div class="loyalty-card"><strong>Frontier Path Loyalty</strong><span class="points-badge">+50 prompt points</span> <span class="points-badge">+75 skill-file points</span><p>Earn 250 Frontier Points when you return and share your results back to ASN. Earn 100 more when you share the Drop with a colleague.</p></div><span id="dropStatus" class="status">${skillDropStatus}</span></section>` : "";
       contentCard.innerHTML = `<div class="content-header"><span class="complete">${completed.has(current) ? "✓" : ""}</span><h1>${unit.title}</h1></div><div class="unit-label">Unit ${current + 1}/${units.length}</div><div class="lesson-body">${unit.body}</div><div class="quote">“${unit.quote}”</div>${skilldropMarkup}`;
       const dropCopyPrompt = document.getElementById("dropCopyPrompt");
       const dropSkillFile = document.getElementById("dropSkillFile");
       if (dropCopyPrompt) dropCopyPrompt.addEventListener("click", () => handleCopilotHandoff("prompt", dropCopyPrompt));
       if (dropSkillFile) dropSkillFile.addEventListener("click", () => handleCopilotHandoff("skill-file", dropSkillFile));
-      document.getElementById("nextButton").textContent = current === 2 ? "Next" : "Next";
+      document.getElementById("nextButton").textContent = current === 2 && skilldropComplete ? "Continue to Unit 4" : "Next";
       renderNav();
     }
     function renderWrap() {
-      document.getElementById("nowPlaying").textContent = "SkillDrop demo checkpoint";
-      contentCard.innerHTML = `<section class="wrap-card"><h1>Demo course checkpoint</h1><p>This sandbox intentionally ends after Unit 3 so the demo can focus on one high-value learning moment: turning the Copilot Chat regional-manager scenario into a SkillDrop for Teams.</p><p>In a production ASN environment, the learner would continue through the remaining module units, while SkillDrop would preserve the share, practice, and relevance signals for measurement.</p><button id="resetButton" class="reset-button" type="button">Reset demo</button></section>`;
+      document.getElementById("nowPlaying").textContent = "Now Playing: Demo conclusion (Unit 4/8)";
+      contentCard.innerHTML = `<section class="wrap-card"><div class="unit-label">Unit 4/8</div><h1>Demo conclusion</h1><p>The learner returned from Copilot, submitted results back to ASN, and the Unit 3 SkillDrop is now marked complete. In production, ASN would continue the learner into the next unit while preserving the practice, share, and results signals.</p><p>Open the admin dashboard to see the sample captured data: UTM behavior, prompt/skill-file handoff actions, result submissions, Frontier Points, and share-driven registrations.</p><div class="drop-actions" style="justify-content:center"><a class="link-button primary" href="#admin">Open Admin tab</a><button id="resetButton" class="reset-button" type="button">Reset demo</button></div></section>`;
       document.getElementById("nextButton").textContent = "Reset demo";
       document.getElementById("resetButton").addEventListener("click", resetDemo);
       renderNav();
@@ -564,6 +583,7 @@
     function resetDemo() {
       completed.clear();
       skillDropStatus = "";
+      localStorage.removeItem("skilldrop:unit3Complete");
       current = 0;
       render();
       window.location.hash = "for-you";
@@ -613,7 +633,7 @@
     }
     const dropUrl = "https://wbnations.github.io/SkillDrop/#drop";
     const fullTeamsUrl = `https://teams.microsoft.com/l/entity/9c2ae80f-253c-4772-86d7-3ed5e1bc8cb2/skilldrop-full?webUrl=${encodeURIComponent("https://wbnations.github.io/SkillDrop/#teams-full")}&label=${encodeURIComponent("SkillDrop")}`;
-    const workflowShareUrl = `https://teams.microsoft.com/share?href=${encodeURIComponent(dropUrl)}&msgText=${encodeURIComponent("SkillDrop: Copilot Chat can help prepare for a client conversation with a faster, context-aware summary. Try this Drop.")}`;
+    const workflowShareUrl = `https://teams.microsoft.com/share?href=${encodeURIComponent("https://wbnations.github.io/SkillDrop/#playlist?utm_source=skilldrop&utm_medium=teams_share&utm_campaign=copilot_chat_unit3&utm_content=colleague_share")}&msgText=${encodeURIComponent("I found an AI Skills Navigator course on using Copilot Chat for faster, context-aware preparation. Try the course here:")}`;
     document.getElementById("fullTeamsCta").href = fullTeamsUrl;
     document.getElementById("workflowCta").href = workflowShareUrl;
     const workflowPayload = {
@@ -634,10 +654,18 @@
       fullExperienceUrl: fullTeamsUrl,
       footerCta: "Get the full SkillDrop experience with the ASN Teams app."
     };
-    const copilotSkillPrompt = `# SkillDrop Coach: Copilot Chat for client-call preparation
+    const copilotSkillPrompt = `# SkillDrop Coach: Put Copilot Chat into practice
 
 ## Your role
-Run this SkillDrop as an interactive coaching experience. Keep it short, practical, and focused on my work context.
+Run this SkillDrop as an interactive coaching experience. Your job is to help me practice the course concept and leave with immediate value for a real work moment, not just another prompt to use later.
+
+## Start with this learner intro
+Before asking any questions, briefly explain what this SkillDrop is for:
+- It helps me apply one AI Skills Navigator lesson directly to work I am doing now.
+- It is training on Copilot Chat, organizational context, faster preparation, and applying learning in the flow of work.
+- I will answer a few short questions, then you will help me create a useful work-ready output, explain what I practiced, and give me a completion summary I can submit back to ASN.
+
+Keep this intro to 3-4 short sentences, then continue to Question 1.
 
 ## Learning context
 - AI Skills Navigator course: Drive business value with Microsoft Copilot solutions
@@ -650,42 +678,105 @@ Imagine a regional manager needs a summary of last quarter's performance before 
 ## Learning objective
 Help me explain how Copilot Chat can reduce manual searching, improve preparation, and support faster decisions in the flow of work.
 
+## Data handling
+Assume I am using Microsoft 365 Copilot in my organization's tenant. I can reference work context that I am permitted to access and would normally use in Copilot. Do not ask me to paste secrets, regulated data, credentials, or content I would not normally use in my organization's Copilot environment.
+
 ## Coaching flow
-Ask me one question at a time. Use the question headers exactly as written so the experience is easy to follow.
+Ask me one question at a time. Use the question headers exactly as written so the experience is easy to follow. For each question, if your chat surface supports suggested replies, render the answer choices as clickable suggestion chips. If not, show the choices as A/B/C/D/E and ask me to reply with the letter or type something else.
 
 ### Question 1: Work moment
-What upcoming conversation, meeting, client call, or stakeholder check-in am I preparing for?
+What are you preparing for?
+- A. Client or customer call
+- B. Stakeholder update
+- C. Team meeting
+- D. Decision review
+- E. Something else - type your own work moment
 
 ### Question 2: Outcome
-What decision or outcome do I need to be ready for?
+What do you need to be ready to do?
+- A. Explain performance or progress
+- B. Recommend an action
+- C. Answer likely questions or objections
+- D. Align people on next steps
+- E. Something else - type your own outcome
 
 ### Question 3: Sources
-Which sources would Copilot need to summarize, such as reports, emails, meeting notes, or files?
+What should Copilot summarize?
+- A. Reports or dashboards
+- B. Emails or chat threads
+- C. Meeting notes or transcripts
+- D. Files, plans, or briefs
+- E. Something else - type your own source
 
 ### Question 4: Trust signal
 What would make the result useful enough to trust or act on?
+- A. Cites or names the sources used
+- B. Shows trends, risks, or changes
+- C. Flags gaps or uncertainty
+- D. Gives recommended next steps
+- E. Something else - type your own trust signal
 
-## After my answers, create
-1. A reusable Copilot Chat prompt for my real work scenario.
-2. A short explanation of how the prompt applies the course concept.
-3. A SkillDrop completion summary I can paste back into ASN with these fields:
+## Practice step
+After I answer the questions, do not stop at a prompt. Help me put the concept into practice immediately.
+
+Create a work-ready output for my scenario. Choose the most useful format based on my answers, such as:
+- a pre-call brief
+- a stakeholder update outline
+- a meeting prep summary
+- a decision brief
+- an action plan with next steps
+
+If you can use my Microsoft 365 Copilot work context, use accessible tenant-grounded context that matches my selected sources. If you need more detail, ask one focused follow-up. Keep the output concise, practical, and ready for me to use or refine.
+
+## End screen
+After the practice output, show a clear end screen with these sections:
+
+### What you learned
+Summarize the course concept I applied: Copilot Chat can use organizational context to reduce manual searching and improve preparation.
+
+### What you practiced
+Summarize the choices I made and the skill I practiced, such as identifying the work moment, outcome, sources, and trust signal.
+
+### Your outcome
+Summarize the useful work product you created for me and how it can help my next work moment.
+
+### SkillDrop completion summary
+Create a completion summary I can paste back into ASN with these fields:
    - Skill practiced
    - Work scenario
-   - Prompt created
+   - Work-ready output created
    - Intended application
    - Expected value
    - Confidence
    - Follow-up question for later
-4. A short Teams message I can send to a colleague to share this SkillDrop.
+
+Then include:
+1. A standalone Markdown link labeled "Return to ASN and submit results" using the exact return URL below.
+2. A short Teams message I can send to a colleague to share this SkillDrop.
+3. A Teams share deep link that opens the message in Teams.
+
+## Return to ASN
+Always include this as its own line after the completion summary:
+[Return to ASN and submit results](https://wbnations.github.io/SkillDrop/#return?utm_source=copilot&utm_medium=skilldrop&utm_campaign=copilot_chat_unit3&utm_content=submit_results)
+
+Tell me I can earn 250 Frontier Points by submitting my completion summary through that link. After I submit, I will return to Unit 3 in ASN with the SkillDrop portion marked complete, then continue to Unit 4 for the demo conclusion and admin data view.
 
 ## Frontier Points
-Tell me I can earn 250 Frontier Points by submitting my completion summary back to ASN here:
+Tell me I can earn 250 Frontier Points by submitting my completion summary back to ASN:
 https://wbnations.github.io/SkillDrop/#return?utm_source=copilot&utm_medium=skilldrop&utm_campaign=copilot_chat_unit3&utm_content=submit_results
 
-Also tell me I can earn 100 Frontier Points by sharing the SkillDrop with a colleague.
+Also tell me I can earn 100 Frontier Points by sharing the SkillDrop with a colleague, and that Unit 4 shows how ASN captured the practice and share signals.
+
+## Teams share link
+Use this generic message so no private details from my coaching session are shared:
+"I found an AI Skills Navigator course on using Copilot Chat for faster, context-aware preparation. Try the course here:"
+
+Create a Markdown link labeled "Share this SkillDrop in Teams" using this URL:
+https://teams.microsoft.com/share?href=https%3A%2F%2Fwbnations.github.io%2FSkillDrop%2F%23playlist%3Futm_source%3Dskilldrop%26utm_medium%3Dteams_share%26utm_campaign%3Dcopilot_chat_unit3%26utm_content%3Dcolleague_share&msgText=I%20found%20an%20AI%20Skills%20Navigator%20course%20on%20using%20Copilot%20Chat%20for%20faster%2C%20context-aware%20preparation.%20Try%20the%20course%20here%3A
 
 ## Guardrails
-- Do not ask me to share confidential details.
+- Do not ask me to paste secrets, regulated data, credentials, or content I would not normally use in my organization's Copilot environment.
+- Do not include my scenario details, customer names, meeting names, files, or work context in the Teams share message.
 - Keep the guidance short, practical, and tied to the course learning objective.
 - Use evidence-safe language: "can help," "may reduce," and "creates a path to evidence."`;
     function awardPoints(points, reason) {
@@ -845,8 +936,15 @@ Also tell me I can earn 100 Frontier Points by sharing the SkillDrop with a coll
         submittedAt: new Date().toISOString()
       };
       localStorage.setItem("skilldrop:lastResult", JSON.stringify(result));
+      localStorage.setItem("skilldrop:unit3Complete", "true");
       awardPoints(250, "results-submitted");
-      document.getElementById("resultStatus").textContent = "Results submitted. 250 Frontier Points awarded. Suggested next step: share this SkillDrop with a colleague for 100 more points.";
+      completed.add(2);
+      skillDropStatus = "Results submitted. SkillDrop complete. Continue to Unit 4 for the demo conclusion.";
+      current = 2;
+      render();
+      window.location.hash = "player";
+      showRoute();
+      window.scrollTo({ top: 0, behavior: "smooth" });
     });
   </script>
 </body>
