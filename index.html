@@ -166,6 +166,10 @@
     .drop-card h1, .drop-card h2 { margin: 0 0 12px; }
     .drop-card p { margin: 0 0 16px; color: var(--cp-text-muted); }
     .drop-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
+    .workflow-config { margin-top: 20px; border: 1px solid var(--cp-border); border-radius: 16px; padding: 16px; background: var(--cp-surface-soft); }
+    .workflow-config label { display: block; margin-bottom: 6px; font-weight: 650; }
+    .workflow-config input { width: 100%; border: 1px solid var(--cp-border); border-radius: 0.625rem; background: var(--cp-surface); color: var(--cp-text); font: inherit; padding: 10px 12px; }
+    .workflow-config button { margin-top: 12px; border: 0; border-radius: 0.625rem; background: var(--cp-accent); color: var(--cp-accent-fg); padding: 10px 14px; font-weight: 650; }
     .link-button { display: inline-flex; align-items: center; justify-content: center; min-height: 40px; border: 1px solid var(--cp-border); border-radius: 0.625rem; padding: 8px 14px; background: var(--cp-surface); color: var(--cp-text); text-decoration: none; font-weight: 650; }
     .link-button.primary { background: var(--cp-accent); border-color: var(--cp-accent); color: var(--cp-accent-fg); }
     .choice-list { display: grid; gap: 10px; margin: 14px 0; }
@@ -243,6 +247,12 @@
             <a class="link-button primary" id="fullTeamsCta" href="#">Open full Teams app experience</a>
             <a class="link-button" id="workflowCta" href="#">Use lightweight workflow share</a>
             <a class="link-button" href="#player">Continue full ASN course</a>
+          </div>
+          <div class="workflow-config">
+            <label for="workflowUrl">Power Automate workflow URL</label>
+            <input id="workflowUrl" type="url" autocomplete="off" placeholder="Paste your HTTP trigger URL at demo time">
+            <button id="sendWorkflowCard" type="button">Send workflow card</button>
+            <p id="workflowStatus" class="status" style="margin-top:10px"></p>
           </div>
         </section>
         <aside class="drop-status-panel">
@@ -441,6 +451,45 @@
     const workflowShareUrl = `https://teams.microsoft.com/share?href=${encodeURIComponent(dropUrl)}&msgText=${encodeURIComponent("SkillDrop: Copilot Chat can help prepare for a client conversation with a faster, context-aware summary. Try this Drop.")}`;
     document.getElementById("fullTeamsCta").href = fullTeamsUrl;
     document.getElementById("workflowCta").href = workflowShareUrl;
+    const workflowPayload = {
+      title: "SkillDrop: Copilot Chat for client-call preparation",
+      course: "Drive business value with Microsoft Copilot solutions",
+      unit: "Unit 3 of 8 - Explore Copilot experiences",
+      concept: "Copilot Chat gives fast, context-aware answers grounded in organizational data.",
+      scenario: "Imagine a regional manager needs a summary of last quarter's performance before a client call. Copilot Chat pulls data from reports and emails, delivering a concise, accurate summary in seconds.",
+      question: "What is the biggest business value in the regional manager scenario?",
+      choices: [
+        "A. A faster, context-aware summary before the client call",
+        "B. A longer report with every source copied in",
+        "C. A new place to manually search for documents"
+      ],
+      correctChoice: "A",
+      practicePrompt: "Think of a client or stakeholder conversation this week. What quick summary would help you walk in better prepared?",
+      dropUrl,
+      fullExperienceUrl: fullTeamsUrl,
+      footerCta: "Get the full SkillDrop experience with the ASN Teams app."
+    };
+    document.getElementById("sendWorkflowCard").addEventListener("click", async () => {
+      const url = document.getElementById("workflowUrl").value.trim();
+      const status = document.getElementById("workflowStatus");
+      if (!url) {
+        status.textContent = "Paste a Power Automate HTTP trigger URL first.";
+        return;
+      }
+      status.textContent = "Sending workflow card...";
+      try {
+        await fetch(url, {
+          method: "POST",
+          mode: "no-cors",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(workflowPayload)
+        });
+        status.textContent = "Workflow request sent. Check Teams for the card.";
+      } catch (error) {
+        console.error("Workflow request failed", error);
+        status.textContent = "Workflow request failed. Check the URL and Power Automate trigger.";
+      }
+    });
     function wireChoices(containerId, feedbackId, successText) {
       const container = document.getElementById(containerId);
       const feedback = document.getElementById(feedbackId);

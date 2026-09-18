@@ -10,6 +10,7 @@ The current demo shows:
 - A hosted lightweight Drop route that can open in the Teams browser
 - A richer Teams app route for the sideloaded full experience
 - A lightweight workflow-share path that uses Teams share instead of a backend
+- A runtime-configured Power Automate HTTP trigger path for sending a workflow card without committing secrets
 
 ## Run locally
 
@@ -25,7 +26,48 @@ http://127.0.0.1:8788/
 
 ## Local Teams workflow handoff
 
-The browser demo calls a local proxy at `http://127.0.0.1:8764/skilldrop`.
+The browser demo can call a Power Automate HTTP trigger at runtime. Do not commit the trigger URL to GitHub.
+
+Recommended Power Automate flow:
+
+1. Trigger: **When an HTTP request is received**
+2. Action: **Post card in a chat or channel**
+3. Optional action: create a SharePoint list item for telemetry
+
+The GitHub-hosted page sends the payload with an unverified browser POST so the Flow URL can stay out of the repo. Treat the Teams card or Flow run history as the confirmation source.
+
+Expected JSON payload:
+
+```json
+{
+  "title": "SkillDrop: Copilot Chat for client-call preparation",
+  "course": "Drive business value with Microsoft Copilot solutions",
+  "unit": "Unit 3 of 8 - Explore Copilot experiences",
+  "concept": "Copilot Chat gives fast, context-aware answers grounded in organizational data.",
+  "scenario": "Imagine a regional manager needs a summary of last quarter's performance before a client call. Copilot Chat pulls data from reports and emails, delivering a concise, accurate summary in seconds.",
+  "question": "What is the biggest business value in the regional manager scenario?",
+  "choices": [
+    "A. A faster, context-aware summary before the client call",
+    "B. A longer report with every source copied in",
+    "C. A new place to manually search for documents"
+  ],
+  "correctChoice": "A",
+  "practicePrompt": "Think of a client or stakeholder conversation this week. What quick summary would help you walk in better prepared?",
+  "dropUrl": "https://wbnations.github.io/SkillDrop/#drop",
+  "fullExperienceUrl": "https://teams.microsoft.com/l/entity/9c2ae80f-253c-4772-86d7-3ed5e1bc8cb2/skilldrop-full?webUrl=https%3A%2F%2Fwbnations.github.io%2FSkillDrop%2F%23teams-full&label=SkillDrop",
+  "footerCta": "Get the full SkillDrop experience with the ASN Teams app."
+}
+```
+
+Suggested card footer:
+
+```text
+Get the full SkillDrop experience with the ASN Teams app.
+```
+
+Legacy local proxy path:
+
+The browser demo can also call a local proxy at `http://127.0.0.1:8764/skilldrop`.
 
 For a reliable Teams card demo, create a Power Automate flow with an HTTP request trigger, then run:
 
