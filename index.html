@@ -306,7 +306,7 @@
           <div class="drop-actions">
             <button class="link-button primary" id="copySkillPrompt" type="button">Copy Copilot SkillDrop prompt</button>
             <a class="link-button" id="downloadSkillFile" href="skills/SkillDrop_CopilotChat.md" download>Download skill file</a>
-            <a class="link-button" id="openCopilotCta" href="https://copilot.cloud.microsoft/chat/" target="_blank" rel="noreferrer">Open Copilot</a>
+            <a class="link-button hidden" id="openCopilotCta" href="https://copilot.cloud.microsoft/chat/" target="_blank" rel="noreferrer">Open Copilot</a>
             <a class="link-button" href="#return">Submit Copilot results</a>
             <a class="link-button primary" id="fullTeamsCta" href="#">Open full Teams app experience</a>
             <a class="link-button" id="workflowCta" href="#">Use lightweight workflow share</a>
@@ -549,8 +549,8 @@
       contentCard.innerHTML = `<div class="content-header"><span class="complete">${completed.has(current) ? "✓" : ""}</span><h1>${unit.title}</h1></div><div class="unit-label">Unit ${current + 1}/${units.length}</div><div class="lesson-body">${unit.body}</div><div class="quote">“${unit.quote}”</div>${skilldropMarkup}`;
       const dropCopyPrompt = document.getElementById("dropCopyPrompt");
       const dropSkillFile = document.getElementById("dropSkillFile");
-      if (dropCopyPrompt) dropCopyPrompt.addEventListener("click", () => handleCopilotHandoff("prompt"));
-      if (dropSkillFile) dropSkillFile.addEventListener("click", () => handleCopilotHandoff("skill-file"));
+      if (dropCopyPrompt) dropCopyPrompt.addEventListener("click", () => handleCopilotHandoff("prompt", dropCopyPrompt));
+      if (dropSkillFile) dropSkillFile.addEventListener("click", () => handleCopilotHandoff("skill-file", dropSkillFile));
       document.getElementById("nextButton").textContent = current === 2 ? "Next" : "Next";
       renderNav();
     }
@@ -693,37 +693,49 @@ Also tell me I can earn 100 Frontier Points by sharing the SkillDrop with a coll
       localStorage.setItem("frontierPoints", String(currentPoints + points));
       localStorage.setItem(`frontier:${reason}:${Date.now()}`, String(points));
     }
-    function revealCopilotLink(statusText) {
-      const link = document.getElementById("dropOpenCopilot");
+    function replaceWithCopilotLink(link, trigger) {
+      if (!link) return;
+      if (trigger?.parentElement === link.parentElement) {
+        trigger.insertAdjacentElement("beforebegin", link);
+        trigger.classList.add("hidden");
+      }
+      link.classList.remove("hidden");
+      link.classList.add("primary");
+      link.focus();
+    }
+    function revealCopilotLink(statusText, trigger, linkId = "dropOpenCopilot") {
+      const link = document.getElementById(linkId);
       const status = document.getElementById("dropStatus");
-      if (link) link.classList.remove("hidden");
+      replaceWithCopilotLink(link, trigger);
       if (status) status.textContent = statusText;
     }
-    async function handleCopilotHandoff(type) {
+    async function handleCopilotHandoff(type, trigger) {
       try {
         await navigator.clipboard.writeText(copilotSkillPrompt);
         awardPoints(type === "prompt" ? 50 : 75, type);
-        revealCopilotLink(type === "prompt" ? "Prompt copied. Open Copilot and paste it to start coaching." : "Skill file download started. Prompt also copied for faster testing.");
+        revealCopilotLink(type === "prompt" ? "Prompt copied. Open Copilot and paste it to start coaching." : "Skill file download started. Open Copilot and upload it, or paste the copied prompt.", trigger);
       } catch (error) {
         console.error("Copilot handoff failed", error);
-        revealCopilotLink("Open Copilot, then paste the prompt from the Drop page or upload the skill file.");
+        revealCopilotLink("Open Copilot, then paste the prompt from the Drop page or upload the skill file.", trigger);
       }
     }
     document.getElementById("copySkillPrompt").addEventListener("click", async () => {
       const status = document.getElementById("skillPromptStatus");
+      const trigger = document.getElementById("copySkillPrompt");
       try {
         await navigator.clipboard.writeText(copilotSkillPrompt);
         awardPoints(50, "drop-page-prompt");
-        document.getElementById("openCopilotCta").classList.add("primary");
+        replaceWithCopilotLink(document.getElementById("openCopilotCta"), trigger);
         status.textContent = "Prompt copied. Open Copilot, paste it, then return to ASN to submit results for 250 Frontier Points.";
       } catch (error) {
         console.error("Copy prompt failed", error);
+        replaceWithCopilotLink(document.getElementById("openCopilotCta"), trigger);
         status.textContent = "Copy failed. Download the skill file and upload or paste its starter prompt into Copilot.";
       }
     });
-    document.getElementById("downloadSkillFile").addEventListener("click", () => {
+    document.getElementById("downloadSkillFile").addEventListener("click", event => {
       awardPoints(75, "drop-page-skill-file");
-      document.getElementById("openCopilotCta").classList.add("primary");
+      replaceWithCopilotLink(document.getElementById("openCopilotCta"), event.currentTarget);
       document.getElementById("skillPromptStatus").textContent = "Skill file downloaded. Open Copilot and upload it, or use the copied prompt path for a faster test.";
     });
     document.getElementById("sendWorkflowCard").addEventListener("click", async () => {
