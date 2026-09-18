@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
 """
 SkillDrop Proxy Server
-Creates SharePoint list items that trigger the Power Automate flow
-Uses Microsoft Graph API for authentication
+For local demos, forwards SkillDrop payloads to a configured workflow endpoint.
 """
 import json
 import sys
@@ -11,14 +10,12 @@ import subprocess
 from http.server import HTTPServer, BaseHTTPRequestHandler
 import urllib.request
 import urllib.error
-from datetime import datetime
-import threading
-import time
 
 # Configuration
 SHAREPOINT_SITE = "https://microsoft.sharepoint.com/sites/skilldrop-team-42dbe9"
 LIST_ID = "77a33ccb-6605-47e5-afa2-aff1e06b4c01"
 GRAPH_API_ENDPOINT = f"{SHAREPOINT_SITE}/_api/lists('{LIST_ID}')/items"
+FLOW_ENDPOINT = os.environ.get("SKILLDROP_FLOW_URL")
 
 class SkillDropHandler(BaseHTTPRequestHandler):
     def do_OPTIONS(self):
@@ -38,18 +35,17 @@ class SkillDropHandler(BaseHTTPRequestHandler):
             print(f"[SkillDrop] Received payload from {self.client_address[0]}", file=sys.stderr)
             print(f"[SkillDrop] Payload: {payload.get('PlaylistName')} → {payload.get('RecipientEmail')}", file=sys.stderr)
             
-            # Create SharePoint list item in background
-            threading.Thread(target=create_sharepoint_item, args=(payload,), daemon=True).start()
+            success, message = send_skilldrop(payload)
+            status_code = 200 if success else 503
             
-            # Return immediate response
-            self.send_response(200)
+            self.send_response(status_code)
             self.send_header('Content-Type', 'application/json')
             self.send_header('Access-Control-Allow-Origin', '*')
             self.end_headers()
             
             response = {
-                "status": "success",
-                "message": "SkillDrop received! Your Teams notification is being sent...",
+                "status": "success" if success else "error",
+                "message": message,
                 "playlistName": payload.get("PlaylistName"),
                 "recipientEmail": payload.get("RecipientEmail")
             }
@@ -71,6 +67,33 @@ class SkillDropHandler(BaseHTTPRequestHandler):
     def log_message(self, format, *args):
         # Suppress default logging
         pass
+
+def send_skilldrop(payload):
+    if FLOW_ENDPOINT:
+        return send_to_flow(payload)
+    return create_sharepoint_item(payload)
+
+def send_to_flow(payload):
+    try:
+        print("[Power Automate] Sending payload to SKILLDROP_FLOW_URL...", file=sys.stderr)
+        req = urllib.request.Request(
+            FLOW_ENDPOINT,
+            data=json.dumps(payload).encode('utf-8'),
+            headers={
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            method='POST'
+        )
+        with urllib.request.urlopen(req, timeout=15) as response:
+            body = response.read().decode('utf-8', errors='replace')
+            print(f"[Power Automate] Response {response.status}: {body[:300]}", file=sys.stderr)
+            if 200 <= response.status < 300:
+                return True, "SkillDrop sent to the configured Power Automate workflow."
+            return False, f"Power Automate returned HTTP {response.status}."
+    except Exception as e:
+        print(f"[Power Automate] Exception: {str(e)}", file=sys.stderr)
+        return False, f"Power Automate handoff failed: {str(e)}"
 
 def create_sharepoint_item(payload):
     """
@@ -141,20 +164,24 @@ def create_sharepoint_item(payload):
             response_data = json.loads(result.stdout) if result.stdout else {}
             if 'd' in response_data and 'ID' in response_data['d']:
                 item_id = response_data['d']['ID']
-                print(f"✓ [SharePoint] Item created with ID: {item_id}", file=sys.stderr)
+                print(f"[SharePoint] Item created with ID: {item_id}", file=sys.stderr)
                 print(f"[Power Automate] Flow should trigger now...", file=sys.stderr)
+                return True, f"SharePoint item created with ID {item_id}; Power Automate should trigger."
             else:
-                print(f"✓ [SharePoint] Response received (ID may not be in response)", file=sys.stderr)
+                print(f"[SharePoint] Response received without item ID", file=sys.stderr)
                 print(f"[SharePoint] Response: {result.stdout[:200]}", file=sys.stderr)
+                return False, "SharePoint responded, but no list item ID was returned."
         else:
-            print(f"✗ [SharePoint] Failed to create item (return code: {result.returncode})", file=sys.stderr)
+            print(f"[SharePoint] Failed to create item (return code: {result.returncode})", file=sys.stderr)
             if result.stderr:
                 print(f"[SharePoint] Error output: {result.stderr[:300]}", file=sys.stderr)
             if result.stdout:
                 print(f"[SharePoint] Response: {result.stdout[:300]}", file=sys.stderr)
+            return False, "SharePoint list handoff failed. Set SKILLDROP_FLOW_URL to a Power Automate HTTP trigger for reliable local demos."
                 
     except Exception as e:
         print(f"[SharePoint] Exception: {str(e)}", file=sys.stderr)
+        return False, f"SharePoint list handoff failed: {str(e)}"
 
 def run_server(port=8764):
     server_address = ('127.0.0.1', port)
@@ -162,7 +189,10 @@ def run_server(port=8764):
     print(f"\n╔════════════════════════════════════════════════════════════╗", file=sys.stderr)
     print(f"║        SkillDrop Proxy Server Active                       ║", file=sys.stderr)
     print(f"║  Listening on http://127.0.0.1:{port}                        ║", file=sys.stderr)
-    print(f"║  Sandbox → Proxy → SharePoint → Power Automate → Teams   ║", file=sys.stderr)
+    if FLOW_ENDPOINT:
+        print(f"║  Sandbox → Proxy → Power Automate HTTP trigger → Teams   ║", file=sys.stderr)
+    else:
+        print(f"║  No SKILLDROP_FLOW_URL set; SharePoint fallback enabled  ║", file=sys.stderr)
     print(f"╚════════════════════════════════════════════════════════════╝\n", file=sys.stderr)
     try:
         httpd.serve_forever()

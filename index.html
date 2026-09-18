@@ -80,13 +80,6 @@
     .started span { position: relative; top: -13px; background: var(--cp-bg); padding: 0 10px; color: var(--cp-text-muted); font-size: 12px; }
     .action-bar { display: flex; justify-content: center; gap: 10px; margin-bottom: 32px; align-items: center; }
     .action-bar button { border: 1px solid var(--cp-border); border-radius: 0.625rem; background: var(--cp-surface); color: var(--cp-text); padding: 6px 14px; }
-    .teams-btn { background: #0078d4 !important; color: white !important; border-color: #0078d4 !important; padding: 8px 16px !important; position: relative; }
-    .teams-dropdown { display: none; position: absolute; top: 100%; right: 0; background: var(--cp-surface); border: 1px solid var(--cp-border); border-radius: 6px; box-shadow: 0 4px 8px rgba(0,0,0,0.15); z-index: 10; min-width: 200px; margin-top: 6px; }
-    .teams-dropdown.open { display: block; }
-    .teams-dropdown button { display: block; width: 100%; text-align: left; border: 0; padding: 10px 14px; background: transparent; color: var(--cp-text); border-radius: 0; }
-    .teams-dropdown button:hover { background: var(--cp-accent-soft); }
-    .teams-dropdown button:first-child { border-radius: 6px 6px 0 0; }
-    .teams-dropdown button:last-child { border-radius: 0 0 6px 6px; }
     .content-card { background: var(--cp-surface); border: 1px solid var(--cp-border); border-radius: 0.625rem; min-height: 550px; padding: 32px; }
     .content-header { display: flex; align-items: center; gap: 12px; }
     .complete { width: 20px; height: 20px; border: 2px solid var(--cp-success); border-radius: 50%; color: var(--cp-success); display: grid; place-items: center; font-size: 13px; }
@@ -102,6 +95,10 @@
     .skilldrop h2 { font-size: 18px; margin: 0 0 4px; }
     .skilldrop p { margin: 0 0 12px; color: var(--cp-text-muted); }
     .skilldrop button { border: 0; border-radius: 0.625rem; background: var(--cp-accent); color: var(--cp-accent-fg); padding: 8px 13px; font-weight: 650; }
+    .wrap-card { text-align: center; padding: 60px 30px; }
+    .wrap-card h1 { margin: 0 auto 18px; max-width: 620px; }
+    .wrap-card p { margin: 0 auto 18px; max-width: 680px; color: var(--cp-text-muted); }
+    .reset-button { border: 0; border-radius: 0.625rem; background: var(--cp-accent); color: var(--cp-accent-fg); padding: 10px 18px; font-weight: 650; }
     .next-wrap { display: flex; justify-content: center; margin: 32px 0 80px; }
     .next-wrap button { min-width: 96px; border: 1px solid var(--cp-border); border-radius: 0.625rem; background: var(--cp-surface); color: var(--cp-text); padding: 9px 17px; }
     .dialog-backdrop { position: fixed; inset: 0; display: none; background: var(--cp-overlay); z-index: 5; }
@@ -178,7 +175,7 @@
     </aside>
     <main class="browse-main"><div class="notice"><span><strong>ⓘ　Profile changes are here</strong><br>Manage your profile details in one place in AI Skills Navigator.</span><button>Find out more</button><button>×</button></div><div class="browse-shell">
       <div style="display:flex;align-items:flex-end;gap:30px"><h1>Welcome back, what do you want to learn today?</h1><div class="streak"><div><img src="https://aiskillsnavigator.microsoft.com/gamification/streak-fire.png" alt=""><strong>1 week</strong><small>Current streak</small></div><div><img src="https://aiskillsnavigator.microsoft.com/gamification/streak-trophy.png" alt=""><strong>1 week</strong><small>Best streak</small></div></div></div>
-      <section class="browse-section"><h2>Recommendations tailored to your learning</h2><div class="recommendations"><div class="browse-card" data-route="#player" style="cursor:pointer"><img src="https://learn.microsoft.com/en-us/training/wwl/business-value-microsoft-copilot-solutions/media/03-copilot-chat-summary.png" alt=""><div class="meta">Module · 38 mins · Microsoft Copilot</div><h3>Drive business value with Microsoft Copilot solutions</h3><button class="secondary" data-route="#player">▣ Module</button></div><div class="browse-card"><img src="https://img.youtube.com/vi/bIAEvYi0yoU/hqdefault.jpg" alt=""><div class="meta">Video · 1 min</div><h3>Summarize and triage customer issues daily with Copilot</h3><button class="secondary">▣ Video</button></div><div class="browse-card"><img src="https://img.youtube.com/vi/QZgbuRKDjf8/maxresdefault.jpg" alt=""><div class="meta">Video · 1 min</div><h3>Create marketing copy aligned to storybook voice and tone with Copilot</h3><button class="secondary">▣ Video</button></div><div class="browse-card"><img src="https://img.youtube.com/vi/f0X05b-MAwY/maxresdefault.jpg" alt=""><div class="meta">Video · 9 mins</div><h3>Microsoft Excel just got more powerful | Agent Mode, Copilot Function &amp; Formula AI</h3><button class="secondary">▣ Video</button></div></div></section>
+      <section class="browse-section"><h2>Recommendations tailored to your learning</h2><div class="recommendations"><div class="browse-card" data-route="#player" style="cursor:pointer"><img src="https://learn.microsoft.com/en-us/training/wwl/business-value-microsoft-copilot-solutions/media/01-reflect-leader.png" alt=""><div class="meta">Module · 38 mins · Microsoft Copilot</div><h3>Drive business value with Microsoft Copilot solutions</h3><button class="secondary" data-route="#player">▣ Module</button></div><div class="browse-card"><img src="https://img.youtube.com/vi/bIAEvYi0yoU/hqdefault.jpg" alt=""><div class="meta">Video · 1 min</div><h3>Summarize and triage customer issues daily with Copilot</h3><button class="secondary">▣ Video</button></div><div class="browse-card"><img src="https://img.youtube.com/vi/QZgbuRKDjf8/maxresdefault.jpg" alt=""><div class="meta">Video · 1 min</div><h3>Create marketing copy aligned to storybook voice and tone with Copilot</h3><button class="secondary">▣ Video</button></div><div class="browse-card"><img src="https://img.youtube.com/vi/f0X05b-MAwY/maxresdefault.jpg" alt=""><div class="meta">Video · 9 mins</div><h3>Microsoft Excel just got more powerful | Agent Mode, Copilot Function &amp; Formula AI</h3><button class="secondary">▣ Video</button></div></div></section>
       <section class="browse-section"><h2>Pick up where you left off</h2><div class="browse-card"><h3>Drive business value with Microsoft Copilot solutions</h3><div class="meta">Progress: 25%</div><div class="progress"><span style="width:25%"></span></div><button class="secondary" data-route="#player">Resume module</button></div></section>
       <div class="footer">Privacy &amp; Cookies　 Terms of Use　 Trademark　 © Microsoft 2026</div>
     </div></main>
@@ -267,8 +264,9 @@
         body: `<p>Microsoft Copilot is more than a productivity tool—it’s a strategic asset that brings AI-powered assistance into the Microsoft 365 apps your organization uses every day.</p><p>Throughout this module, you explored how Copilot can automate routine tasks, deliver actionable insights, and support responsible innovation across business processes.</p><h2>Further learning</h2><ul><li>Explore the possibilities with Microsoft Copilot.</li><li>Review Copilot Chat and Microsoft 365 Copilot overviews.</li><li>Learn more about Copilot Studio and extensibility.</li></ul>`
       }
     ];
-    let current = 2;
+    let current = 0;
     const completed = new Set();
+    let skillDropStatus = "";
     const contentCard = document.getElementById("contentCard");
     const unitList = document.getElementById("unitList");
     function renderNav() {
@@ -278,19 +276,47 @@
     function render() {
       const unit = units[current];
       document.getElementById("nowPlaying").textContent = `Now Playing: ${unit.title} (Unit ${current + 1}/${units.length})`;
-      const skilldropMarkup = unit.skilldrop ? `<section class="skilldrop"><h2>SkillDrop</h2><p>Bring this concept into my work context.</p><button id="dropButton" type="button">SkillDrop - Bring this concept into my work context</button><span id="dropStatus" class="status"></span></section>` : "";
+      const skilldropMarkup = unit.skilldrop ? `<section class="skilldrop"><h2>SkillDrop</h2><p>Bring this concept into my work context.</p><button id="dropButton" type="button">SkillDrop - Bring this concept into my work context</button><span id="dropStatus" class="status">${skillDropStatus}</span></section>` : "";
       contentCard.innerHTML = `<div class="content-header"><span class="complete">${completed.has(current) ? "✓" : ""}</span><h1>${unit.title}</h1></div><div class="unit-label">Unit ${current + 1}/${units.length}</div><div class="lesson-body">${unit.body}</div><div class="quote">“${unit.quote}”</div>${skilldropMarkup}`;
       const dropButton = document.getElementById("dropButton");
       if (dropButton) dropButton.addEventListener("click", () => launchSkillDrop(unit));
-      document.getElementById("nextButton").textContent = current === units.length - 1 ? "Finish" : "Next";
+      document.getElementById("nextButton").textContent = current === 2 ? "Next" : "Next";
       renderNav();
+    }
+    function renderWrap() {
+      document.getElementById("nowPlaying").textContent = "SkillDrop demo checkpoint";
+      contentCard.innerHTML = `<section class="wrap-card"><h1>Demo course checkpoint</h1><p>This sandbox intentionally ends after Unit 3 so the demo can focus on one high-value learning moment: turning the Copilot Chat regional-manager scenario into a SkillDrop for Teams.</p><p>In a production ASN environment, the learner would continue through the remaining module units, while SkillDrop would preserve the share, practice, and relevance signals for measurement.</p><button id="resetButton" class="reset-button" type="button">Reset demo</button></section>`;
+      document.getElementById("nextButton").textContent = "Reset demo";
+      document.getElementById("resetButton").addEventListener("click", resetDemo);
+      renderNav();
+    }
+    function resetDemo() {
+      completed.clear();
+      skillDropStatus = "";
+      current = 0;
+      render();
+      window.location.hash = "for-you";
+      showRoute();
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
     function closeNav() { document.getElementById("navBackdrop").classList.remove("open"); }
     document.getElementById("menuButton").addEventListener("click", () => document.getElementById("navBackdrop").classList.add("open"));
     document.getElementById("closeNav").addEventListener("click", closeNav);
     document.getElementById("navBackdrop").addEventListener("click", event => { if (event.target.id === "navBackdrop") closeNav(); });
-    document.getElementById("nextButton").addEventListener("click", () => { completed.add(current); if (current < units.length - 1) current += 1; render(); window.scrollTo({ top: 0, behavior: "smooth" }); });
-    document.getElementById("exitButton").addEventListener("click", () => { document.getElementById("nowPlaying").textContent = "Course overview"; });
+    document.getElementById("nextButton").addEventListener("click", () => {
+      if (document.getElementById("resetButton")) {
+        resetDemo();
+        return;
+      }
+      completed.add(current);
+      if (current === 2) renderWrap();
+      else {
+        current += 1;
+        render();
+      }
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+    document.getElementById("exitButton").addEventListener("click", resetDemo);
     function showRoute() {
       const route = window.location.hash || "#for-you";
       document.querySelectorAll(".browse").forEach(view => view.classList.remove("active"));
@@ -341,22 +367,26 @@
           },
           body: JSON.stringify(skillDropItem)
         });
-         
-        if (response.ok || response.status === 201) {
-          alert("SkillDrop launched! Check your Teams chat with the Flow bot in 10 seconds.");
+        const result = await response.json().catch(() => ({}));
+
+        if (response.ok && result.status === "success") {
+          alert("SkillDrop launched. Check Teams for the workflow card.");
           console.log("SkillDrop item created:", skillDropItem);
-          document.getElementById("dropStatus").textContent = " Sent to Teams";
+          skillDropStatus = " Sent to Teams";
+          document.getElementById("dropStatus").textContent = skillDropStatus;
         } else {
           console.log("Response status:", response.status);
-          alert("SkillDrop configured! The Teams flow will trigger when the item is created in SharePoint.");
+          alert(result.message || "SkillDrop workflow is not connected in this demo environment.");
           console.log("SkillDrop Payload:", skillDropItem);
-          document.getElementById("dropStatus").textContent = " Configured";
+          skillDropStatus = " Workflow not connected";
+          document.getElementById("dropStatus").textContent = skillDropStatus;
         }
       } catch (err) {
-        console.error("SharePoint create error (expected in sandbox):", err);
+        console.error("SkillDrop workflow handoff unavailable:", err);
         console.log("SkillDrop Payload would send:", skillDropItem);
-        alert("SkillDrop demo ready! In production, this triggers the Power Automate flow via SharePoint.");
-        document.getElementById("dropStatus").textContent = " Preview payload ready";
+        alert("Workflow connector is not running. For the demo, start proxy-server.py or configure a hosted workflow endpoint before sending to Teams.");
+        skillDropStatus = " Workflow not connected";
+        document.getElementById("dropStatus").textContent = skillDropStatus;
       }
     }
   </script>
