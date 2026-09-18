@@ -112,6 +112,8 @@
     .unit-button { display: flex; width: 100%; justify-content: space-between; border: 0; border-top: 1px solid var(--cp-border); background: var(--cp-surface); color: var(--cp-text); padding: 13px 18px; text-align: left; }
     .unit-button:hover, .unit-button.active { background: var(--cp-accent-soft); }
     .status { color: var(--cp-success); font-size: 13px; }
+    .admin-portal-link { position: fixed; top: 16px; right: 16px; z-index: 20; display: inline-flex; align-items: center; gap: 8px; min-height: 36px; padding: 7px 13px; border: 1px solid var(--cp-border); border-radius: 999px; background: var(--cp-panel-strong); color: var(--cp-text); text-decoration: none; font-weight: 650; box-shadow: 0 8px 24px rgba(0,0,0,0.10); }
+    .admin-portal-link:hover { border-color: var(--cp-accent); background: var(--cp-accent-soft); }
     .browse { min-height: 100vh; display: none; background: var(--cp-bg); }
     .browse.active { display: flex; }
     .side-nav { position: fixed; inset: 14px auto 14px 14px; width: 246px; border-radius: 0; background: transparent; padding: 25px 0; }
@@ -180,6 +182,17 @@
     .choice-help h3 { margin: 0 0 8px; }
     .loyalty-card { margin-top: 18px; }
     .points-badge { display: inline-flex; align-items: center; min-height: 28px; padding: 4px 10px; border-radius: 999px; background: var(--cp-accent); color: var(--cp-accent-fg); font-weight: 650; }
+    .prompt-preview { margin-top: 18px; border: 1px solid var(--cp-border); border-radius: 16px; background: var(--cp-panel-strong); overflow: hidden; }
+    .prompt-preview header { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 16px; border-bottom: 1px solid var(--cp-border); background: var(--cp-surface-soft); }
+    .prompt-preview h3 { margin: 0; font-size: 16px; font-weight: 700; }
+    .prompt-preview .prompt-body { display: grid; gap: 12px; padding: 16px; }
+    .prompt-section { border-left: 3px solid var(--cp-accent); padding-left: 12px; }
+    .prompt-section strong { display: block; margin-bottom: 2px; font-size: 13px; letter-spacing: 0.02em; text-transform: uppercase; color: var(--cp-accent); }
+    .prompt-section p { margin: 0; color: var(--cp-text); }
+    .prompt-question { display: grid; grid-template-columns: 32px minmax(0, 1fr); gap: 10px; align-items: start; padding: 10px 12px; border: 1px solid var(--cp-border); border-radius: 12px; background: var(--cp-surface); }
+    .prompt-question span { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: var(--cp-accent); color: var(--cp-accent-fg); font-weight: 700; }
+    .prompt-question b { display: block; margin-bottom: 2px; font-weight: 700; }
+    .prompt-question p { margin: 0; color: var(--cp-text-muted); }
     .results-form { display: grid; gap: 14px; margin-top: 18px; }
     .results-form label { font-weight: 650; }
     .results-form select, .results-form textarea { width: 100%; border: 1px solid var(--cp-border); border-radius: 0.625rem; background: var(--cp-surface); color: var(--cp-text); font: inherit; padding: 10px 12px; }
@@ -190,6 +203,7 @@
     .admin-table { width: 100%; border-collapse: collapse; margin-top: 12px; }
     .admin-table th, .admin-table td { border-bottom: 1px solid var(--cp-border); padding: 10px 8px; text-align: left; vertical-align: top; }
     .admin-table th { color: var(--cp-text-muted); font-weight: 650; }
+    .admin-table caption { caption-side: bottom; padding-top: 10px; color: var(--cp-text-muted); text-align: left; font-size: 13px; }
     .filter-row { display: flex; gap: 12px; flex-wrap: wrap; align-items: end; margin: 12px 0 4px; }
     .filter-row label { display: grid; gap: 4px; font-weight: 650; }
     .filter-row select { border: 1px solid var(--cp-border); border-radius: 0.625rem; background: var(--cp-surface); color: var(--cp-text); font: inherit; padding: 8px 10px; }
@@ -221,10 +235,12 @@
       .drop-page, .teams-shell { display: block; }
       .teams-rail, .teams-nav { display: none; }
       .admin-grid { grid-template-columns: 1fr; }
+      .admin-portal-link { position: static; margin: 12px; }
     }
   </style>
 </head>
 <body>
+  <a class="admin-portal-link" href="#admin">Admin portal</a>
   <div id="browseForYou" class="browse">
     <aside class="side-nav">
       <div class="brand">AI Skills Navigator</div>
@@ -270,6 +286,17 @@
             <h3>Which do I choose?</h3>
             <p><strong>Copy prompt</strong> is fastest. Paste it into Copilot to make this module contextual to your own meeting, client call, or decision.</p>
             <p><strong>Download skill file</strong> is more durable. Use it when you want to keep, share, or reuse the SkillDrop as a structured artifact.</p>
+          </div>
+          <div class="prompt-preview">
+            <header><h3>Prompt preview</h3><span class="points-badge">Copies formatted coaching prompt</span></header>
+            <div class="prompt-body">
+              <div class="prompt-section"><strong>Role</strong><p>Run this SkillDrop as an interactive Copilot coaching experience.</p></div>
+              <div class="prompt-section"><strong>Learning context</strong><p>Drive business value with Microsoft Copilot solutions, Unit 3: Explore Copilot experiences.</p></div>
+              <div class="prompt-question"><span>1</span><div><b>Question 1: Work moment</b><p>What upcoming conversation, meeting, client call, or stakeholder check-in are you preparing for?</p></div></div>
+              <div class="prompt-question"><span>2</span><div><b>Question 2: Outcome</b><p>What decision or outcome do you need to be ready for?</p></div></div>
+              <div class="prompt-question"><span>3</span><div><b>Question 3: Sources</b><p>Which reports, emails, meeting notes, or files should Copilot summarize?</p></div></div>
+              <div class="prompt-question"><span>4</span><div><b>Question 4: Trust signal</b><p>What would make the result useful enough to trust or act on?</p></div></div>
+            </div>
           </div>
           <div class="loyalty-card">
             <strong>Frontier Path Loyalty</strong>
@@ -391,6 +418,10 @@
           <div class="admin-panel" style="margin-top:18px">
             <h2>New registrant trail from original share links</h2>
             <table class="admin-table" id="registrantTable"></table>
+          </div>
+          <div class="admin-panel" style="margin-top:18px">
+            <h2>Recent SkillDrop result submissions</h2>
+            <table class="admin-table" id="submissionsTable"></table>
           </div>
         </section>
       </main>
@@ -514,7 +545,7 @@
     function render() {
       const unit = units[current];
       document.getElementById("nowPlaying").textContent = `Now Playing: ${unit.title} (Unit ${current + 1}/${units.length})`;
-      const skilldropMarkup = unit.skilldrop ? `<section class="skilldrop"><h2>SkillDrop</h2><p>Bring this concept into my work context with Copilot. Choose the fast prompt path or download the skill file for more permanent reuse.</p><div class="drop-actions"><button class="link-button primary" id="dropCopyPrompt" type="button">Copy Copilot prompt</button><a class="link-button" id="dropSkillFile" href="skills/SkillDrop_CopilotChat.md" download>Download skill file</a><a class="link-button hidden" id="dropOpenCopilot" href="https://copilot.cloud.microsoft/chat/" target="_blank" rel="noreferrer">Open Copilot</a></div><div class="choice-help"><h3>Which do I choose?</h3><p><strong>Copy prompt</strong> if you want the fastest path: paste it into Copilot and make this module contextual to your current meeting, client call, or stakeholder decision.</p><p><strong>Skill file</strong> if you want a reusable artifact: upload or save it so the same SkillDrop can be shared, reused, or standardized later.</p></div><div class="loyalty-card"><strong>Frontier Path Loyalty</strong><span class="points-badge">+50 prompt points</span> <span class="points-badge">+75 skill-file points</span><p>Earn 250 Frontier Points when you return and share your results back to ASN. Earn 100 more when you share the Drop with a colleague.</p></div><span id="dropStatus" class="status">${skillDropStatus}</span></section>` : "";
+      const skilldropMarkup = unit.skilldrop ? `<section class="skilldrop"><h2>SkillDrop</h2><p>Bring this concept into my work context with Copilot. Choose the fast prompt path or download the skill file for more permanent reuse.</p><div class="drop-actions"><button class="link-button primary" id="dropCopyPrompt" type="button">Copy Copilot prompt</button><a class="link-button" id="dropSkillFile" href="skills/SkillDrop_CopilotChat.md" download>Download skill file</a><a class="link-button hidden" id="dropOpenCopilot" href="https://copilot.cloud.microsoft/chat/" target="_blank" rel="noreferrer">Open Copilot</a></div><div class="prompt-preview"><header><h3>Prompt preview</h3><span class="points-badge">Formatted coaching flow</span></header><div class="prompt-body"><div class="prompt-section"><strong>Role</strong><p>Run this SkillDrop as an interactive Copilot coaching experience.</p></div><div class="prompt-section"><strong>Learning context</strong><p>Drive business value with Microsoft Copilot solutions, Unit 3: Explore Copilot experiences.</p></div><div class="prompt-question"><span>1</span><div><b>Question 1: Work moment</b><p>What upcoming conversation, meeting, client call, or stakeholder check-in are you preparing for?</p></div></div><div class="prompt-question"><span>2</span><div><b>Question 2: Outcome</b><p>What decision or outcome do you need to be ready for?</p></div></div><div class="prompt-question"><span>3</span><div><b>Question 3: Sources</b><p>Which reports, emails, meeting notes, or files should Copilot summarize?</p></div></div><div class="prompt-question"><span>4</span><div><b>Question 4: Trust signal</b><p>What would make the result useful enough to trust or act on?</p></div></div></div></div><div class="choice-help"><h3>Which do I choose?</h3><p><strong>Copy prompt</strong> if you want the fastest path: paste it into Copilot and make this module contextual to your current meeting, client call, or stakeholder decision.</p><p><strong>Skill file</strong> if you want a reusable artifact: upload or save it so the same SkillDrop can be shared, reused, or standardized later.</p></div><div class="loyalty-card"><strong>Frontier Path Loyalty</strong><span class="points-badge">+50 prompt points</span> <span class="points-badge">+75 skill-file points</span><p>Earn 250 Frontier Points when you return and share your results back to ASN. Earn 100 more when you share the Drop with a colleague.</p></div><span id="dropStatus" class="status">${skillDropStatus}</span></section>` : "";
       contentCard.innerHTML = `<div class="content-header"><span class="complete">${completed.has(current) ? "✓" : ""}</span><h1>${unit.title}</h1></div><div class="unit-label">Unit ${current + 1}/${units.length}</div><div class="lesson-body">${unit.body}</div><div class="quote">“${unit.quote}”</div>${skilldropMarkup}`;
       const dropCopyPrompt = document.getElementById("dropCopyPrompt");
       const dropSkillFile = document.getElementById("dropSkillFile");
@@ -603,23 +634,38 @@
       fullExperienceUrl: fullTeamsUrl,
       footerCta: "Get the full SkillDrop experience with the ASN Teams app."
     };
-    const copilotSkillPrompt = `Run this SkillDrop as an interactive coaching experience.
+    const copilotSkillPrompt = `# SkillDrop Coach: Copilot Chat for client-call preparation
 
-I am learning from AI Skills Navigator: Drive business value with Microsoft Copilot solutions, Unit 3: Explore Copilot experiences.
+## Your role
+Run this SkillDrop as an interactive coaching experience. Keep it short, practical, and focused on my work context.
 
-The concept is Copilot Chat for fast answers and organizational context.
+## Learning context
+- AI Skills Navigator course: Drive business value with Microsoft Copilot solutions
+- Unit: Unit 3 - Explore Copilot experiences
+- Concept: Copilot Chat for fast answers and organizational context
 
-Source scenario: Imagine a regional manager needs a summary of last quarter's performance before a client call. Copilot Chat pulls data from reports and emails, delivering a concise, accurate summary in seconds.
+## Source scenario
+Imagine a regional manager needs a summary of last quarter's performance before a client call. Copilot Chat pulls data from reports and emails, delivering a concise, accurate summary in seconds.
 
-Learning objective: help me explain how Copilot Chat can reduce manual searching, improve preparation, and support faster decisions in the flow of work.
+## Learning objective
+Help me explain how Copilot Chat can reduce manual searching, improve preparation, and support faster decisions in the flow of work.
 
-Coach me through applying this to my work. Ask me one question at a time:
-1. What upcoming conversation, meeting, client call, or stakeholder check-in am I preparing for?
-2. What decision or outcome do I need to be ready for?
-3. Which sources would Copilot need to summarize, such as reports, emails, meeting notes, or files?
-4. What would make the result useful enough to trust or act on?
+## Coaching flow
+Ask me one question at a time. Use the question headers exactly as written so the experience is easy to follow.
 
-After my answers, create:
+### Question 1: Work moment
+What upcoming conversation, meeting, client call, or stakeholder check-in am I preparing for?
+
+### Question 2: Outcome
+What decision or outcome do I need to be ready for?
+
+### Question 3: Sources
+Which sources would Copilot need to summarize, such as reports, emails, meeting notes, or files?
+
+### Question 4: Trust signal
+What would make the result useful enough to trust or act on?
+
+## After my answers, create
 1. A reusable Copilot Chat prompt for my real work scenario.
 2. A short explanation of how the prompt applies the course concept.
 3. A SkillDrop completion summary I can paste back into ASN with these fields:
@@ -632,12 +678,16 @@ After my answers, create:
    - Follow-up question for later
 4. A short Teams message I can send to a colleague to share this SkillDrop.
 
+## Frontier Points
 Tell me I can earn 250 Frontier Points by submitting my completion summary back to ASN here:
 https://wbnations.github.io/SkillDrop/#return?utm_source=copilot&utm_medium=skilldrop&utm_campaign=copilot_chat_unit3&utm_content=submit_results
 
 Also tell me I can earn 100 Frontier Points by sharing the SkillDrop with a colleague.
 
-Do not ask me to share confidential details. Keep the guidance short, practical, and tied to the course learning objective.`;
+## Guardrails
+- Do not ask me to share confidential details.
+- Keep the guidance short, practical, and tied to the course learning objective.
+- Use evidence-safe language: "can help," "may reduce," and "creates a path to evidence."`;
     function awardPoints(points, reason) {
       const currentPoints = Number(localStorage.getItem("frontierPoints") || 0);
       localStorage.setItem("frontierPoints", String(currentPoints + points));
@@ -715,16 +765,32 @@ Do not ask me to share confidential details. Keep the guidance short, practical,
     const adminEvents = [
       { role: "Regional manager", source: "manager_share", action: "prompt_copied", count: 48, points: 2400, registrants: 12 },
       { role: "Regional manager", source: "manager_share", action: "results_submitted", count: 29, points: 7250, registrants: 9 },
+      { role: "Regional manager", source: "peer_share", action: "module_shared_via_copilot", count: 18, points: 1800, registrants: 7 },
+      { role: "Regional manager", source: "asn_recommendation", action: "return_link_clicked", count: 34, points: 0, registrants: 8 },
       { role: "Sales leader", source: "peer_share", action: "skill_file_downloaded", count: 31, points: 2325, registrants: 6 },
+      { role: "Sales leader", source: "asn_recommendation", action: "asn_continued", count: 37, points: 0, registrants: 11 },
+      { role: "Sales leader", source: "manager_share", action: "results_submitted", count: 21, points: 5250, registrants: 5 },
       { role: "Customer success", source: "asn_recommendation", action: "copilot_opened", count: 64, points: 0, registrants: 14 },
+      { role: "Customer success", source: "peer_share", action: "prompt_copied", count: 42, points: 2100, registrants: 10 },
+      { role: "Customer success", source: "peer_share", action: "results_submitted", count: 24, points: 6000, registrants: 6 },
       { role: "Operations leader", source: "manager_share", action: "module_shared_via_copilot", count: 22, points: 2200, registrants: 8 },
-      { role: "Sales leader", source: "asn_recommendation", action: "asn_continued", count: 37, points: 0, registrants: 11 }
+      { role: "Operations leader", source: "asn_recommendation", action: "skill_file_downloaded", count: 19, points: 1425, registrants: 4 }
     ];
     const registrants = [
       { learner: "New learner 1042", role: "Regional manager", source: "manager_share", firstTouch: "prompt_copied", converted: "Signed in after Drop" },
       { learner: "New learner 1043", role: "Sales leader", source: "peer_share", firstTouch: "skill_file_downloaded", converted: "Started full ASN module" },
       { learner: "New learner 1044", role: "Customer success", source: "asn_recommendation", firstTouch: "copilot_opened", converted: "Submitted results" },
-      { learner: "New learner 1045", role: "Operations leader", source: "manager_share", firstTouch: "module_shared_via_copilot", converted: "Shared onward" }
+      { learner: "New learner 1045", role: "Operations leader", source: "manager_share", firstTouch: "module_shared_via_copilot", converted: "Shared onward" },
+      { learner: "New learner 1046", role: "Regional manager", source: "peer_share", firstTouch: "return_link_clicked", converted: "Submitted results" },
+      { learner: "New learner 1047", role: "Sales leader", source: "manager_share", firstTouch: "prompt_copied", converted: "Downloaded skill file" },
+      { learner: "New learner 1048", role: "Customer success", source: "peer_share", firstTouch: "module_shared_via_copilot", converted: "Signed in after Drop" }
+    ];
+    const sampleSubmissions = [
+      { learner: "Learner 2871", role: "Regional manager", moment: "Client or customer call", outcome: "Reusable prompt", points: 250, confidence: "High" },
+      { learner: "Learner 2872", role: "Sales leader", moment: "Stakeholder update", outcome: "Clearer briefing prompt", points: 250, confidence: "Medium" },
+      { learner: "Learner 2873", role: "Customer success", moment: "Team meeting", outcome: "Account-risk summary", points: 250, confidence: "High" },
+      { learner: "Learner 2874", role: "Operations leader", moment: "Decision review", outcome: "Weekly metrics summary", points: 250, confidence: "Medium" },
+      { learner: "Learner 2875", role: "Regional manager", moment: "Client or customer call", outcome: "Pre-call prep prompt", points: 250, confidence: "High" }
     ];
     function filteredAdminEvents() {
       const role = document.getElementById("roleFilter")?.value || "all";
@@ -733,6 +799,8 @@ Do not ask me to share confidential details. Keep the guidance short, practical,
     }
     function renderAdmin() {
       const rows = filteredAdminEvents();
+      const savedResult = localStorage.getItem("skilldrop:lastResult");
+      const parsedResult = savedResult ? JSON.parse(savedResult) : null;
       const totals = rows.reduce((acc, item) => {
         acc.actions += item.count;
         acc.points += item.points;
@@ -747,7 +815,11 @@ Do not ask me to share confidential details. Keep the guidance short, practical,
         ["Frontier Points", totals.points]
       ].map(([label, value]) => `<div class="admin-metric"><span>${label}</span><strong>${value}</strong></div>`).join("");
       document.getElementById("adminTable").innerHTML = `<thead><tr><th>Role</th><th>UTM source</th><th>Behavior</th><th>Count</th><th>Points</th><th>Registrants</th></tr></thead><tbody>${rows.map(item => `<tr><td>${item.role}</td><td>${item.source}</td><td>${item.action}</td><td>${item.count}</td><td>${item.points}</td><td>${item.registrants}</td></tr>`).join("")}</tbody>`;
-      document.getElementById("registrantTable").innerHTML = `<thead><tr><th>Learner</th><th>Role</th><th>Original share source</th><th>First signal</th><th>Registration trail</th></tr></thead><tbody>${registrants.map(item => `<tr><td>${item.learner}</td><td>${item.role}</td><td>${item.source}</td><td>${item.firstTouch}</td><td>${item.converted}</td></tr>`).join("")}</tbody>`;
+      const visibleRegistrants = registrants.filter(item => (document.getElementById("roleFilter").value === "all" || item.role === document.getElementById("roleFilter").value) && (document.getElementById("sourceFilter").value === "all" || item.source === document.getElementById("sourceFilter").value));
+      const localSubmission = parsedResult ? [{ learner: "Current demo learner", role: "Regional manager", moment: parsedResult.moment, outcome: parsedResult.helped, points: 250, confidence: parsedResult.intent }] : [];
+      const visibleSubmissions = [...localSubmission, ...sampleSubmissions].filter(item => document.getElementById("roleFilter").value === "all" || item.role === document.getElementById("roleFilter").value);
+      document.getElementById("registrantTable").innerHTML = `<thead><tr><th>Learner</th><th>Role</th><th>Original share source</th><th>First signal</th><th>Registration trail</th></tr></thead><tbody>${visibleRegistrants.map(item => `<tr><td>${item.learner}</td><td>${item.role}</td><td>${item.source}</td><td>${item.firstTouch}</td><td>${item.converted}</td></tr>`).join("")}</tbody>`;
+      document.getElementById("submissionsTable").innerHTML = `<thead><tr><th>Learner</th><th>Role</th><th>Applied moment</th><th>Submitted outcome</th><th>Points</th><th>Confidence / intent</th></tr></thead><tbody>${visibleSubmissions.map(item => `<tr><td>${item.learner}</td><td>${item.role}</td><td>${item.moment}</td><td>${item.outcome}</td><td>${item.points}</td><td>${item.confidence}</td></tr>`).join("")}</tbody><caption>Sample data only. The current browser's latest submitted result appears as Current demo learner.</caption>`;
     }
     document.getElementById("roleFilter").addEventListener("change", renderAdmin);
     document.getElementById("sourceFilter").addEventListener("change", renderAdmin);
