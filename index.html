@@ -133,7 +133,8 @@
     .center-title { text-align: center; margin: 0 0 40px !important; font-size: 22px !important; }
     .browse-section { margin: 36px 0; }
     .browse-card { border: 1px solid var(--cp-border); border-radius: 8px; background: var(--cp-surface); padding: 14px; margin: 16px 0; min-height: 147px; }
-    .browse-card.demo-path-card { border: 1px solid var(--cp-accent); box-shadow: 0 0 0 3px var(--cp-accent-soft); }
+    .browse-card.demo-path-card { border: 3px solid var(--cp-accent); box-shadow: 0 0 0 5px var(--cp-accent-soft), 0 18px 42px rgba(177, 31, 75, 0.18); position: relative; }
+    .browse-card.demo-path-card::after { content: "Click this demo path"; position: absolute; top: 12px; right: 12px; padding: 5px 10px; border-radius: 999px; background: var(--cp-accent); color: var(--cp-accent-fg); font-size: 12px; font-weight: 700; }
     .recommendations { display: flex; gap: 20px; overflow: hidden; }
     .recommendations .browse-card { flex: 0 0 350px; min-height: 393px; padding: 0; overflow: hidden; }
     .recommendations .browse-card img, .copilot-thumb { display: block; width: 100%; height: 200px; object-fit: cover; }
@@ -360,7 +361,7 @@
             <label>Did Copilot help you apply the concept?
               <select id="resultHelped" required>
                 <option value="">Choose one</option>
-                <option>Yes - I have a reusable prompt</option>
+                <option>Yes - I created a work-ready output</option>
                 <option>Somewhat - I understand the scenario better</option>
                 <option>Not yet - I need more context</option>
               </select>
@@ -375,7 +376,7 @@
                 <option>Other</option>
               </select>
             </label>
-            <label>How likely are you to use this prompt?
+            <label>How likely are you to use this output?
               <select id="resultIntent" required>
                 <option value="">Choose one</option>
                 <option>This week</option>
@@ -405,9 +406,10 @@
       <div class="browser-chrome"><span>● ● ●</span><span>← → ⟳</span><span class="url-pill">https://wbnations.github.io/SkillDrop/#admin</span></div>
       <main class="drop-page" style="grid-template-columns:minmax(0,1fr)">
         <section class="drop-card">
-          <p class="eyebrow">SkillDrop admin</p>
+          <p class="eyebrow">ASN business insights</p>
           <h1>SkillDrop signal dashboard</h1>
-          <p>Sample analytics view for ASN admins: UTM behavior, Copilot handoff intent, Frontier Points, and share-driven registration trail.</p>
+          <p>Sample analytics view for ASN business leaders: UTM behavior, Copilot handoff intent, Frontier Points, learner outcomes, and share-driven registration trail.</p>
+          <div class="drop-actions" style="margin:4px 0 18px"><a class="link-button primary" href="#for-you">Back to demo start</a></div>
           <div class="filter-row">
             <label>ASN role
               <select id="roleFilter">
@@ -672,6 +674,14 @@ Keep this intro to 3-4 short sentences, then continue to Question 1.
 - Unit: Unit 3 - Explore Copilot experiences
 - Concept: Copilot Chat for fast answers and organizational context
 
+## Related ASN content to reference
+When useful, reference the next related content in this same ASN module:
+- Unit 4: Map business processes to Copilot solutions
+- Unit 5: Extend and customize Copilot
+- Unit 6: Explore responsible AI in Copilot
+
+Do not invent additional ASN courses, catalog IDs, or learning paths. If you suggest next learning, keep it tied to this module unless ASN provides more content.
+
 ## Source scenario
 Imagine a regional manager needs a summary of last quarter's performance before a client call. Copilot Chat pulls data from reports and emails, delivering a concise, accurate summary in seconds.
 
@@ -728,17 +738,31 @@ Create a work-ready output for my scenario. Choose the most useful format based 
 
 If you can use my Microsoft 365 Copilot work context, use accessible tenant-grounded context that matches my selected sources. If you need more detail, ask one focused follow-up. Keep the output concise, practical, and ready for me to use or refine.
 
+Also suggest one optional Copilot follow-up automation idea based on my scenario, such as a recurring weekly prep brief, meeting follow-up summary, customer-risk review, or stakeholder update draft. Frame it as a suggestion I could set up later; do not claim automation has been created.
+
 ## End screen
-After the practice output, show a clear end screen with these sections:
+After the practice output, show a clear final completion card with these sections in this order:
 
 ### What you learned
 Summarize the course concept I applied: Copilot Chat can use organizational context to reduce manual searching and improve preparation.
+
+### Continue in AI Skills Navigator
+Include this exact Markdown link directly under the heading:
+[Continue in AI Skills Navigator and submit results](https://wbnations.github.io/SkillDrop/#return?utm_source=copilot&utm_medium=skilldrop&utm_campaign=copilot_chat_unit3&utm_content=submit_results)
+
+Then explain: "This opens a quick results page first so ASN can mark this SkillDrop complete, award 250 Frontier Points, and return you to Unit 3. From there, continue to Unit 4 for the demo conclusion and captured data view."
 
 ### What you practiced
 Summarize the choices I made and the skill I practiced, such as identifying the work moment, outcome, sources, and trust signal.
 
 ### Your outcome
 Summarize the useful work product you created for me and how it can help my next work moment.
+
+### Suggested Copilot follow-up automation
+Recommend one automation idea that could help me repeat this behavior later, without claiming it has been created.
+
+### Share with a colleague
+Include the short Teams message and the "Share this SkillDrop in Teams" Markdown link from the Teams share link section.
 
 ### SkillDrop completion summary
 Create a completion summary I can paste back into ASN with these fields:
@@ -748,16 +772,12 @@ Create a completion summary I can paste back into ASN with these fields:
    - Intended application
    - Expected value
    - Confidence
+   - Suggested measurement signal
    - Follow-up question for later
 
-Then include:
-1. A standalone Markdown link labeled "Return to ASN and submit results" using the exact return URL below.
-2. A short Teams message I can send to a colleague to share this SkillDrop.
-3. A Teams share deep link that opens the message in Teams.
-
 ## Return to ASN
-Always include this as its own line after the completion summary:
-[Return to ASN and submit results](https://wbnations.github.io/SkillDrop/#return?utm_source=copilot&utm_medium=skilldrop&utm_campaign=copilot_chat_unit3&utm_content=submit_results)
+Always include this link in the "Continue in AI Skills Navigator" section near the top of the end screen:
+[Continue in AI Skills Navigator and submit results](https://wbnations.github.io/SkillDrop/#return?utm_source=copilot&utm_medium=skilldrop&utm_campaign=copilot_chat_unit3&utm_content=submit_results)
 
 Tell me I can earn 250 Frontier Points by submitting my completion summary through that link. After I submit, I will return to Unit 3 in ASN with the SkillDrop portion marked complete, then continue to Unit 4 for the demo conclusion and admin data view.
 
@@ -889,11 +909,11 @@ https://teams.microsoft.com/share?href=https%3A%2F%2Fwbnations.github.io%2FSkill
       { learner: "New learner 1048", role: "Customer success", source: "peer_share", firstTouch: "module_shared_via_copilot", converted: "Signed in after Drop" }
     ];
     const sampleSubmissions = [
-      { learner: "Learner 2871", role: "Regional manager", moment: "Client or customer call", outcome: "Reusable prompt", points: 250, confidence: "High" },
-      { learner: "Learner 2872", role: "Sales leader", moment: "Stakeholder update", outcome: "Clearer briefing prompt", points: 250, confidence: "Medium" },
+      { learner: "Learner 2871", role: "Regional manager", moment: "Client or customer call", outcome: "Work-ready pre-call brief", points: 250, confidence: "High" },
+      { learner: "Learner 2872", role: "Sales leader", moment: "Stakeholder update", outcome: "Stakeholder briefing outline", points: 250, confidence: "Medium" },
       { learner: "Learner 2873", role: "Customer success", moment: "Team meeting", outcome: "Account-risk summary", points: 250, confidence: "High" },
       { learner: "Learner 2874", role: "Operations leader", moment: "Decision review", outcome: "Weekly metrics summary", points: 250, confidence: "Medium" },
-      { learner: "Learner 2875", role: "Regional manager", moment: "Client or customer call", outcome: "Pre-call prep prompt", points: 250, confidence: "High" }
+      { learner: "Learner 2875", role: "Regional manager", moment: "Client or customer call", outcome: "Pre-call prep summary", points: 250, confidence: "High" }
     ];
     function filteredAdminEvents() {
       const role = document.getElementById("roleFilter")?.value || "all";
