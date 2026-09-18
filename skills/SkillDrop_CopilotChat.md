@@ -103,6 +103,7 @@ Return:
 5. In the "Continue in AI Skills Navigator" section, include a standalone Markdown link labeled "Continue in AI Skills Navigator and submit results" using this exact URL:
    `https://wbnations.github.io/SkillDrop/#return?utm_source=copilot&utm_medium=skilldrop&utm_campaign=copilot_chat_unit3&utm_content=submit_results`
    Then explain: "This opens a quick results page first so ASN can mark this SkillDrop complete, award 250 Frontier Points, and return you to Unit 3. From there, continue to Unit 4 for the demo conclusion and captured data view."
+   Do not print the full URL anywhere in the response. Show only the clean Markdown link label.
 6. A short Teams share message for a colleague in the "Share with a colleague" section.
 7. A Markdown link labeled "Share this SkillDrop in Teams" in the "Share with a colleague" section using this URL:
    `https://teams.microsoft.com/share?href=https%3A%2F%2Fwbnations.github.io%2FSkillDrop%2F%23playlist%3Futm_source%3Dskilldrop%26utm_medium%3Dteams_share%26utm_campaign%3Dcopilot_chat_unit3%26utm_content%3Dcolleague_share&msgText=I%20found%20an%20AI%20Skills%20Navigator%20course%20on%20using%20Copilot%20Chat%20for%20faster%2C%20context-aware%20preparation.%20Try%20the%20course%20here%3A`
