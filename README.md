@@ -4,14 +4,15 @@ SkillDrop is a hackathon prototype for bringing focused AI Skills Navigator lear
 
 The current demo shows:
 
-- An AI Skills Navigator-style sandbox for the real **Build your AI transformation plan** playlist
+- An AI Skills Navigator-style sandbox with a highlighted SkillDrop demo path
 - A focused **Drive business value with Microsoft Copilot solutions** demo flow
-- A Unit 3 SkillDrop action for bringing the Copilot Chat scenario into Teams
+- A Unit 3 SkillDrop action for bringing the Copilot Chat scenario into Copilot
 - A hosted lightweight Drop route that can open in the Teams browser
 - A richer Teams app route for the sideloaded full experience
 - A lightweight workflow-share path that uses Teams share instead of a backend
-- A runtime-configured Power Automate HTTP trigger path for sending a workflow card without committing secrets
 - A downloadable Copilot SkillDrop skill file for applying Unit 3 to the learner's own work context
+- A return-to-ASN results page with Frontier Points
+- A sample admin dashboard for UTM behavior, Copilot handoff signals, and share-driven registrations
 
 ## Run locally
 
@@ -27,7 +28,7 @@ http://127.0.0.1:8788/
 
 ## Local Teams workflow handoff
 
-The browser demo can call a Power Automate HTTP trigger at runtime. Do not commit the trigger URL to GitHub.
+The primary hosted demo uses Teams share links and Copilot handoff buttons, not a backend. A Power Automate HTTP trigger path is still present as a local/runtime experiment, but this tenant's default developer DLP policy may block `HttpRequestReceived`, so do not rely on it for the final demo.
 
 Recommended Power Automate flow:
 
@@ -88,6 +89,8 @@ Primary demo routes:
 https://wbnations.github.io/SkillDrop/
 https://wbnations.github.io/SkillDrop/#drop
 https://wbnations.github.io/SkillDrop/#teams-full
+https://wbnations.github.io/SkillDrop/#return
+https://wbnations.github.io/SkillDrop/#admin
 ```
 
 ## Copilot SkillDrop file
@@ -100,11 +103,12 @@ skills/SkillDrop_CopilotChat.md
 
 Recommended test flow:
 
-1. Open `https://wbnations.github.io/SkillDrop/#drop`
-2. Click **Copy Copilot SkillDrop prompt**
-3. Click **Open Copilot**
-4. Paste the prompt into Copilot
-5. Optionally download/upload `SkillDrop_CopilotChat.md` as a structured skill artifact
+1. Open `https://wbnations.github.io/SkillDrop/`
+2. Start the recommended Copilot module and navigate to **Unit 3: Explore Copilot experiences**
+3. Click **Copy Copilot prompt** or **Download skill file**
+4. Click **Open Copilot**, paste the prompt, and complete the coaching flow
+5. Return to `#return` to submit the completion summary and claim 250 Frontier Points
+6. Open `#admin` to view sample UTM behavior, handoff actions, Frontier Points, and new registrant trail
 
 Recommended Pages setting:
 

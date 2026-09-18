@@ -171,7 +171,28 @@
     .workflow-config input { width: 100%; border: 1px solid var(--cp-border); border-radius: 0.625rem; background: var(--cp-surface); color: var(--cp-text); font: inherit; padding: 10px 12px; }
     .workflow-config button { margin-top: 12px; border: 0; border-radius: 0.625rem; background: var(--cp-accent); color: var(--cp-accent-fg); padding: 10px 14px; font-weight: 650; }
     .link-button { display: inline-flex; align-items: center; justify-content: center; min-height: 40px; border: 1px solid var(--cp-border); border-radius: 0.625rem; padding: 8px 14px; background: var(--cp-surface); color: var(--cp-text); text-decoration: none; font-weight: 650; }
+    button.link-button { font: inherit; }
     .link-button.primary { background: var(--cp-accent); border-color: var(--cp-accent); color: var(--cp-accent-fg); }
+    .demo-callout, .loyalty-card, .choice-help, .results-form, .admin-panel { border: 1px solid var(--cp-border); border-radius: 16px; background: var(--cp-accent-soft); padding: 16px; }
+    .demo-callout { margin: 24px 0; border-left: 4px solid var(--cp-accent); }
+    .demo-callout strong, .loyalty-card strong { display: block; margin-bottom: 4px; }
+    .choice-help { margin-top: 18px; background: var(--cp-surface-soft); }
+    .choice-help h3 { margin: 0 0 8px; }
+    .loyalty-card { margin-top: 18px; }
+    .points-badge { display: inline-flex; align-items: center; min-height: 28px; padding: 4px 10px; border-radius: 999px; background: var(--cp-accent); color: var(--cp-accent-fg); font-weight: 650; }
+    .results-form { display: grid; gap: 14px; margin-top: 18px; }
+    .results-form label { font-weight: 650; }
+    .results-form select, .results-form textarea { width: 100%; border: 1px solid var(--cp-border); border-radius: 0.625rem; background: var(--cp-surface); color: var(--cp-text); font: inherit; padding: 10px 12px; }
+    .results-form textarea { min-height: 120px; resize: vertical; }
+    .admin-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin: 18px 0; }
+    .admin-metric { border: 1px solid var(--cp-border); border-radius: 16px; background: var(--cp-surface); padding: 16px; }
+    .admin-metric strong { display: block; font-size: 26px; line-height: 1.1; }
+    .admin-table { width: 100%; border-collapse: collapse; margin-top: 12px; }
+    .admin-table th, .admin-table td { border-bottom: 1px solid var(--cp-border); padding: 10px 8px; text-align: left; vertical-align: top; }
+    .admin-table th { color: var(--cp-text-muted); font-weight: 650; }
+    .filter-row { display: flex; gap: 12px; flex-wrap: wrap; align-items: end; margin: 12px 0 4px; }
+    .filter-row label { display: grid; gap: 4px; font-weight: 650; }
+    .filter-row select { border: 1px solid var(--cp-border); border-radius: 0.625rem; background: var(--cp-surface); color: var(--cp-text); font: inherit; padding: 8px 10px; }
     .choice-list { display: grid; gap: 10px; margin: 14px 0; }
     .choice-list button { text-align: left; border: 1px solid var(--cp-border); border-radius: 0.625rem; padding: 12px; background: var(--cp-surface); color: var(--cp-text); }
     .choice-list button.selected { border-color: var(--cp-accent); background: var(--cp-accent-soft); }
@@ -199,6 +220,7 @@
       .content-card { padding: 22px; }
       .drop-page, .teams-shell { display: block; }
       .teams-rail, .teams-nav { display: none; }
+      .admin-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -211,7 +233,8 @@
     </aside>
     <main class="browse-main"><div class="notice"><span><strong>ⓘ　Profile changes are here</strong><br>Manage your profile details in one place in AI Skills Navigator.</span><button>Find out more</button><button>×</button></div><div class="browse-shell">
       <div style="display:flex;align-items:flex-end;gap:30px"><h1>Welcome back, what do you want to learn today?</h1><div class="streak"><div><img src="https://aiskillsnavigator.microsoft.com/gamification/streak-fire.png" alt=""><strong>1 week</strong><small>Current streak</small></div><div><img src="https://aiskillsnavigator.microsoft.com/gamification/streak-trophy.png" alt=""><strong>1 week</strong><small>Best streak</small></div></div></div>
-      <section class="browse-section"><h2>Recommendations tailored to your learning</h2><div class="recommendations"><div class="browse-card" data-route="#player" style="cursor:pointer"><img src="https://learn.microsoft.com/en-us/training/wwl/business-value-microsoft-copilot-solutions/media/01-reflect-leader.png" alt=""><div class="meta">Module · 38 mins · Microsoft Copilot</div><h3>Drive business value with Microsoft Copilot solutions</h3><button class="secondary" data-route="#player">▣ Module</button></div><div class="browse-card"><img src="https://img.youtube.com/vi/bIAEvYi0yoU/hqdefault.jpg" alt=""><div class="meta">Video · 1 min</div><h3>Summarize and triage customer issues daily with Copilot</h3><button class="secondary">▣ Video</button></div><div class="browse-card"><img src="https://img.youtube.com/vi/QZgbuRKDjf8/maxresdefault.jpg" alt=""><div class="meta">Video · 1 min</div><h3>Create marketing copy aligned to storybook voice and tone with Copilot</h3><button class="secondary">▣ Video</button></div><div class="browse-card"><img src="https://img.youtube.com/vi/f0X05b-MAwY/maxresdefault.jpg" alt=""><div class="meta">Video · 9 mins</div><h3>Microsoft Excel just got more powerful | Agent Mode, Copilot Function &amp; Formula AI</h3><button class="secondary">▣ Video</button></div></div></section>
+      <div class="demo-callout"><strong>SkillDrop demo path</strong>Start this recommended Copilot module, then navigate to <strong>Unit 3: Explore Copilot experiences</strong>. That is where SkillDrop appears and turns the lesson into a contextual Copilot coaching flow.</div>
+      <section class="browse-section"><h2>Recommendations tailored to your learning</h2><div class="recommendations"><div class="browse-card" data-route="#player" style="cursor:pointer"><img src="https://learn.microsoft.com/en-us/training/wwl/business-value-microsoft-copilot-solutions/media/03-copilot-chat-summary.png" alt=""><div class="meta">Demo path · Module · 38 mins · Microsoft Copilot</div><h3>Drive business value with Microsoft Copilot solutions</h3><button class="secondary" data-route="#player">▣ Start demo module</button></div><div class="browse-card"><img src="https://img.youtube.com/vi/bIAEvYi0yoU/hqdefault.jpg" alt=""><div class="meta">Video · 1 min</div><h3>Summarize and triage customer issues daily with Copilot</h3><button class="secondary">▣ Video</button></div><div class="browse-card"><img src="https://img.youtube.com/vi/QZgbuRKDjf8/maxresdefault.jpg" alt=""><div class="meta">Video · 1 min</div><h3>Create marketing copy aligned to storybook voice and tone with Copilot</h3><button class="secondary">▣ Video</button></div><div class="browse-card"><img src="https://img.youtube.com/vi/f0X05b-MAwY/maxresdefault.jpg" alt=""><div class="meta">Video · 9 mins</div><h3>Microsoft Excel just got more powerful | Agent Mode, Copilot Function &amp; Formula AI</h3><button class="secondary">▣ Video</button></div></div></section>
       <section class="browse-section"><h2>Pick up where you left off</h2><div class="browse-card"><h3>Drive business value with Microsoft Copilot solutions</h3><div class="meta">Progress: 25%</div><div class="progress"><span style="width:25%"></span></div><button class="secondary" data-route="#player">Resume module</button></div></section>
       <div class="footer">Privacy &amp; Cookies　 Terms of Use　 Trademark　 © Microsoft 2026</div>
     </div></main>
@@ -222,7 +245,7 @@
   </div>
   <div id="browsePlaylist" class="browse">
     <aside class="side-nav"><div class="brand">AI Skills Navigator</div><div class="side-group"><button data-route="#for-you">For you</button><button>Explore content</button><button class="active" data-route="#playlists">Skilling playlists</button><button>Credentials</button><button>Reporting</button><button>Training Services Partners</button></div><div class="account"><button>Feedback and help</button><button>William Nations</button></div></aside>
-    <main class="browse-main"><div class="browse-shell"><a href="#for-you">← Back</a><div class="playlist-hero"><div class="meta">8 units　·　Module　·　38 mins</div><h1>Drive business value with Microsoft Copilot solutions</h1><p>Discover how Microsoft Copilot can transform the way your organization works. Learn how Copilot integrates with Microsoft 365 apps to automate routine tasks, deliver actionable insights, and support secure, compliant innovation.</p><div class="progress"><span style="display:block;width:25%;height:100%;background:var(--cp-accent)"></span></div><div class="playlist-actions"><button class="primary" data-route="#player">Jump to unit 3</button></div><div style="margin-top:20px;padding:16px;background:var(--cp-surface-soft);border-radius:8px;border-left:4px solid var(--cp-accent)"><p style="margin:0;font-size:14px;color:var(--cp-text-muted)"><strong>Microskilling in Teams</strong><br>SkillDrop appears only where a concept is useful enough to bring into a real work context.</p></div></div><div class="playlist-list"><div class="playlist-item"><h3>Introduction</h3><p>How Copilot helps organizations rethink how work gets done.</p></div><div class="playlist-item"><h3>Explore Copilot solutions</h3><p>Copilot Chat, Microsoft Copilot, and Copilot Studio.</p></div><div class="playlist-item"><h3>Explore Copilot experiences</h3><p>Copilot Chat scenario selected for SkillDrop.</p></div></div><div class="footer">Privacy &amp; Cookies　 Terms of Use　 Trademark　 © Microsoft 2026</div></div></main>
+    <main class="browse-main"><div class="browse-shell"><a href="#for-you">← Back</a><div class="playlist-hero"><div class="meta">8 units　·　Module　·　38 mins</div><h1>Drive business value with Microsoft Copilot solutions</h1><p>Discover how Microsoft Copilot can transform the way your organization works. Learn how Copilot integrates with Microsoft 365 apps to automate routine tasks, deliver actionable insights, and support secure, compliant innovation.</p><div class="progress"><span style="display:block;width:25%;height:100%;background:var(--cp-accent)"></span></div><div class="playlist-actions"><button class="primary" data-route="#player">Start at intro</button></div><div class="demo-callout"><strong>Demo instruction</strong>Move through the module until <strong>Unit 3: Explore Copilot experiences</strong>. The SkillDrop button appears on that unit because the regional-manager scenario is specific enough to bring into a real work context.</div></div><div class="playlist-list"><div class="playlist-item"><h3>Introduction</h3><p>How Copilot helps organizations rethink how work gets done.</p></div><div class="playlist-item"><h3>Explore Copilot solutions</h3><p>Copilot Chat, Microsoft Copilot, and Copilot Studio.</p></div><div class="playlist-item"><h3>Explore Copilot experiences</h3><p>Copilot Chat scenario selected for SkillDrop.</p></div></div><div class="footer">Privacy &amp; Cookies　 Terms of Use　 Trademark　 © Microsoft 2026</div></div></main>
   </div>
   <div id="dropView" class="drop-view">
     <div class="browser-shell">
@@ -243,10 +266,21 @@
           <p id="dropFeedback" class="status"></p>
           <h2>Apply it now</h2>
           <p>Think of a client or stakeholder conversation this week. What quick summary would help you walk in better prepared?</p>
+          <div class="choice-help">
+            <h3>Which do I choose?</h3>
+            <p><strong>Copy prompt</strong> is fastest. Paste it into Copilot to make this module contextual to your own meeting, client call, or decision.</p>
+            <p><strong>Download skill file</strong> is more durable. Use it when you want to keep, share, or reuse the SkillDrop as a structured artifact.</p>
+          </div>
+          <div class="loyalty-card">
+            <strong>Frontier Path Loyalty</strong>
+            <span class="points-badge">+50 copy prompt</span> <span class="points-badge">+75 download skill file</span> <span class="points-badge">+250 submit results</span> <span class="points-badge">+100 share</span>
+            <p>Finish the Copilot coaching flow, then return to ASN and submit your results to earn Frontier Points.</p>
+          </div>
           <div class="drop-actions">
             <button class="link-button primary" id="copySkillPrompt" type="button">Copy Copilot SkillDrop prompt</button>
             <a class="link-button" id="downloadSkillFile" href="skills/SkillDrop_CopilotChat.md" download>Download skill file</a>
             <a class="link-button" id="openCopilotCta" href="https://copilot.cloud.microsoft/chat/" target="_blank" rel="noreferrer">Open Copilot</a>
+            <a class="link-button" href="#return">Submit Copilot results</a>
             <a class="link-button primary" id="fullTeamsCta" href="#">Open full Teams app experience</a>
             <a class="link-button" id="workflowCta" href="#">Use lightweight workflow share</a>
             <a class="link-button" href="#player">Continue full ASN course</a>
@@ -267,6 +301,98 @@
           <div class="metric-row"><span>Workflow path</span><strong>Optional</strong></div>
           <p style="margin-top:16px">This lightweight Drop can open in the Teams browser as a hosted web page. The full Teams app can use the same content with richer interaction and state.</p>
         </aside>
+      </main>
+    </div>
+  </div>
+  <div id="returnView" class="drop-view">
+    <div class="browser-shell">
+      <div class="browser-chrome"><span>● ● ●</span><span>← → ⟳</span><span class="url-pill">https://wbnations.github.io/SkillDrop/#return?utm_source=copilot&utm_medium=skilldrop</span></div>
+      <main class="drop-page">
+        <section class="drop-card">
+          <p class="eyebrow">Return to ASN</p>
+          <h1>Submit your SkillDrop results</h1>
+          <p>Paste your Copilot completion summary, or answer the quick survey. This closes the lightweight learning loop and earns <strong>250 Frontier Points</strong>.</p>
+          <form class="results-form" id="resultsForm">
+            <label>Did Copilot help you apply the concept?
+              <select id="resultHelped" required>
+                <option value="">Choose one</option>
+                <option>Yes - I have a reusable prompt</option>
+                <option>Somewhat - I understand the scenario better</option>
+                <option>Not yet - I need more context</option>
+              </select>
+            </label>
+            <label>What kind of work moment did you apply it to?
+              <select id="resultMoment" required>
+                <option value="">Choose one</option>
+                <option>Client or customer call</option>
+                <option>Stakeholder update</option>
+                <option>Team meeting</option>
+                <option>Decision review</option>
+                <option>Other</option>
+              </select>
+            </label>
+            <label>How likely are you to use this prompt?
+              <select id="resultIntent" required>
+                <option value="">Choose one</option>
+                <option>This week</option>
+                <option>This month</option>
+                <option>Later / saved for reuse</option>
+              </select>
+            </label>
+            <label>Optional Copilot completion summary
+              <textarea id="resultSummary" placeholder="Paste the SkillDrop completion summary from Copilot. Do not include confidential details."></textarea>
+            </label>
+            <button class="link-button primary" type="submit">Submit results and claim 250 Frontier Points</button>
+          </form>
+          <p id="resultStatus" class="status"></p>
+        </section>
+        <aside class="drop-status-panel">
+          <h2>Signals captured</h2>
+          <div class="metric-row"><span>Learning demonstrated</span><strong>L2</strong></div>
+          <div class="metric-row"><span>Application intent</span><strong>L3 signal</strong></div>
+          <div class="metric-row"><span>Potential business value</span><strong>L4 lead</strong></div>
+          <p style="margin-top:16px">This demo stores sample/local results only. In production, ASN would write these signals to its learning analytics pipeline.</p>
+        </aside>
+      </main>
+    </div>
+  </div>
+  <div id="adminView" class="drop-view">
+    <div class="browser-shell">
+      <div class="browser-chrome"><span>● ● ●</span><span>← → ⟳</span><span class="url-pill">https://wbnations.github.io/SkillDrop/#admin</span></div>
+      <main class="drop-page" style="grid-template-columns:minmax(0,1fr)">
+        <section class="drop-card">
+          <p class="eyebrow">SkillDrop admin</p>
+          <h1>SkillDrop signal dashboard</h1>
+          <p>Sample analytics view for ASN admins: UTM behavior, Copilot handoff intent, Frontier Points, and share-driven registration trail.</p>
+          <div class="filter-row">
+            <label>ASN role
+              <select id="roleFilter">
+                <option value="all">All roles</option>
+                <option>Sales leader</option>
+                <option>Regional manager</option>
+                <option>Customer success</option>
+                <option>Operations leader</option>
+              </select>
+            </label>
+            <label>Source
+              <select id="sourceFilter">
+                <option value="all">All sources</option>
+                <option>manager_share</option>
+                <option>peer_share</option>
+                <option>asn_recommendation</option>
+              </select>
+            </label>
+          </div>
+          <div class="admin-grid" id="adminMetrics"></div>
+          <div class="admin-panel">
+            <h2>UTM and learning-signal behavior</h2>
+            <table class="admin-table" id="adminTable"></table>
+          </div>
+          <div class="admin-panel" style="margin-top:18px">
+            <h2>New registrant trail from original share links</h2>
+            <table class="admin-table" id="registrantTable"></table>
+          </div>
+        </section>
       </main>
     </div>
   </div>
@@ -388,10 +514,12 @@
     function render() {
       const unit = units[current];
       document.getElementById("nowPlaying").textContent = `Now Playing: ${unit.title} (Unit ${current + 1}/${units.length})`;
-      const skilldropMarkup = unit.skilldrop ? `<section class="skilldrop"><h2>SkillDrop</h2><p>Bring this concept into my work context.</p><button id="dropButton" type="button">SkillDrop - Bring this concept into my work context</button><span id="dropStatus" class="status">${skillDropStatus}</span></section>` : "";
+      const skilldropMarkup = unit.skilldrop ? `<section class="skilldrop"><h2>SkillDrop</h2><p>Bring this concept into my work context with Copilot. Choose the fast prompt path or download the skill file for more permanent reuse.</p><div class="drop-actions"><button class="link-button primary" id="dropCopyPrompt" type="button">Copy Copilot prompt</button><a class="link-button" id="dropSkillFile" href="skills/SkillDrop_CopilotChat.md" download>Download skill file</a><a class="link-button hidden" id="dropOpenCopilot" href="https://copilot.cloud.microsoft/chat/" target="_blank" rel="noreferrer">Open Copilot</a></div><div class="choice-help"><h3>Which do I choose?</h3><p><strong>Copy prompt</strong> if you want the fastest path: paste it into Copilot and make this module contextual to your current meeting, client call, or stakeholder decision.</p><p><strong>Skill file</strong> if you want a reusable artifact: upload or save it so the same SkillDrop can be shared, reused, or standardized later.</p></div><div class="loyalty-card"><strong>Frontier Path Loyalty</strong><span class="points-badge">+50 prompt points</span> <span class="points-badge">+75 skill-file points</span><p>Earn 250 Frontier Points when you return and share your results back to ASN. Earn 100 more when you share the Drop with a colleague.</p></div><span id="dropStatus" class="status">${skillDropStatus}</span></section>` : "";
       contentCard.innerHTML = `<div class="content-header"><span class="complete">${completed.has(current) ? "✓" : ""}</span><h1>${unit.title}</h1></div><div class="unit-label">Unit ${current + 1}/${units.length}</div><div class="lesson-body">${unit.body}</div><div class="quote">“${unit.quote}”</div>${skilldropMarkup}`;
-      const dropButton = document.getElementById("dropButton");
-      if (dropButton) dropButton.addEventListener("click", () => launchSkillDrop(unit));
+      const dropCopyPrompt = document.getElementById("dropCopyPrompt");
+      const dropSkillFile = document.getElementById("dropSkillFile");
+      if (dropCopyPrompt) dropCopyPrompt.addEventListener("click", () => handleCopilotHandoff("prompt"));
+      if (dropSkillFile) dropSkillFile.addEventListener("click", () => handleCopilotHandoff("skill-file"));
       document.getElementById("nextButton").textContent = current === 2 ? "Next" : "Next";
       renderNav();
     }
@@ -430,12 +558,14 @@
     });
     document.getElementById("exitButton").addEventListener("click", resetDemo);
     function showRoute() {
-      const route = window.location.hash || "#for-you";
+      const route = (window.location.hash || "#for-you").split("?")[0];
       document.querySelectorAll(".browse").forEach(view => view.classList.remove("active"));
       document.querySelectorAll(".drop-view").forEach(view => view.classList.remove("active"));
       document.getElementById("playerView").classList.add("hidden");
       if (route === "#player") document.getElementById("playerView").classList.remove("hidden");
       else if (route === "#drop") document.getElementById("dropView").classList.add("active");
+      else if (route === "#return") document.getElementById("returnView").classList.add("active");
+      else if (route === "#admin") { document.getElementById("adminView").classList.add("active"); renderAdmin(); }
       else if (route === "#teams-full") document.getElementById("teamsFullView").classList.add("active");
       else if (route === "#playlists") document.getElementById("browsePlaylists").classList.add("active");
       else if (route === "#playlist") document.getElementById("browsePlaylist").classList.add("active");
@@ -473,7 +603,7 @@
       fullExperienceUrl: fullTeamsUrl,
       footerCta: "Get the full SkillDrop experience with the ASN Teams app."
     };
-    const copilotSkillPrompt = `Run this SkillDrop.
+    const copilotSkillPrompt = `Run this SkillDrop as an interactive coaching experience.
 
 I am learning from AI Skills Navigator: Drive business value with Microsoft Copilot solutions, Unit 3: Explore Copilot experiences.
 
@@ -481,21 +611,70 @@ The concept is Copilot Chat for fast answers and organizational context.
 
 Source scenario: Imagine a regional manager needs a summary of last quarter's performance before a client call. Copilot Chat pulls data from reports and emails, delivering a concise, accurate summary in seconds.
 
-Coach me through applying this to my work. First ask me a few short questions:
+Learning objective: help me explain how Copilot Chat can reduce manual searching, improve preparation, and support faster decisions in the flow of work.
+
+Coach me through applying this to my work. Ask me one question at a time:
 1. What upcoming conversation, meeting, client call, or stakeholder check-in am I preparing for?
 2. What decision or outcome do I need to be ready for?
 3. Which sources would Copilot need to summarize, such as reports, emails, meeting notes, or files?
+4. What would make the result useful enough to trust or act on?
 
-Then create a reusable Copilot Chat prompt I can use. Do not ask me to share confidential details. Keep the guidance short, practical, and tied to the course learning objective. End with one suggested way to measure whether the skill helped.`;
+After my answers, create:
+1. A reusable Copilot Chat prompt for my real work scenario.
+2. A short explanation of how the prompt applies the course concept.
+3. A SkillDrop completion summary I can paste back into ASN with these fields:
+   - Skill practiced
+   - Work scenario
+   - Prompt created
+   - Intended application
+   - Expected value
+   - Confidence
+   - Follow-up question for later
+4. A short Teams message I can send to a colleague to share this SkillDrop.
+
+Tell me I can earn 250 Frontier Points by submitting my completion summary back to ASN here:
+https://wbnations.github.io/SkillDrop/#return?utm_source=copilot&utm_medium=skilldrop&utm_campaign=copilot_chat_unit3&utm_content=submit_results
+
+Also tell me I can earn 100 Frontier Points by sharing the SkillDrop with a colleague.
+
+Do not ask me to share confidential details. Keep the guidance short, practical, and tied to the course learning objective.`;
+    function awardPoints(points, reason) {
+      const currentPoints = Number(localStorage.getItem("frontierPoints") || 0);
+      localStorage.setItem("frontierPoints", String(currentPoints + points));
+      localStorage.setItem(`frontier:${reason}:${Date.now()}`, String(points));
+    }
+    function revealCopilotLink(statusText) {
+      const link = document.getElementById("dropOpenCopilot");
+      const status = document.getElementById("dropStatus");
+      if (link) link.classList.remove("hidden");
+      if (status) status.textContent = statusText;
+    }
+    async function handleCopilotHandoff(type) {
+      try {
+        await navigator.clipboard.writeText(copilotSkillPrompt);
+        awardPoints(type === "prompt" ? 50 : 75, type);
+        revealCopilotLink(type === "prompt" ? "Prompt copied. Open Copilot and paste it to start coaching." : "Skill file download started. Prompt also copied for faster testing.");
+      } catch (error) {
+        console.error("Copilot handoff failed", error);
+        revealCopilotLink("Open Copilot, then paste the prompt from the Drop page or upload the skill file.");
+      }
+    }
     document.getElementById("copySkillPrompt").addEventListener("click", async () => {
       const status = document.getElementById("skillPromptStatus");
       try {
         await navigator.clipboard.writeText(copilotSkillPrompt);
-        status.textContent = "Prompt copied. Open Copilot and paste it to start the SkillDrop coaching flow.";
+        awardPoints(50, "drop-page-prompt");
+        document.getElementById("openCopilotCta").classList.add("primary");
+        status.textContent = "Prompt copied. Open Copilot, paste it, then return to ASN to submit results for 250 Frontier Points.";
       } catch (error) {
         console.error("Copy prompt failed", error);
         status.textContent = "Copy failed. Download the skill file and upload or paste its starter prompt into Copilot.";
       }
+    });
+    document.getElementById("downloadSkillFile").addEventListener("click", () => {
+      awardPoints(75, "drop-page-skill-file");
+      document.getElementById("openCopilotCta").classList.add("primary");
+      document.getElementById("skillPromptStatus").textContent = "Skill file downloaded. Open Copilot and upload it, or use the copied prompt path for a faster test.";
     });
     document.getElementById("sendWorkflowCard").addEventListener("click", async () => {
       const url = document.getElementById("workflowUrl").value.trim();
@@ -533,6 +712,58 @@ Then create a reusable Copilot Chat prompt I can use. Do not ask me to share con
     }
     wireChoices("dropChoices", "dropFeedback", "Correct. The value is faster preparation with context from the work itself.");
     wireChoices("teamsChoices", "teamsFeedback", "Correct. SkillDrop captured demonstrated understanding inside the Teams app experience.");
+    const adminEvents = [
+      { role: "Regional manager", source: "manager_share", action: "prompt_copied", count: 48, points: 2400, registrants: 12 },
+      { role: "Regional manager", source: "manager_share", action: "results_submitted", count: 29, points: 7250, registrants: 9 },
+      { role: "Sales leader", source: "peer_share", action: "skill_file_downloaded", count: 31, points: 2325, registrants: 6 },
+      { role: "Customer success", source: "asn_recommendation", action: "copilot_opened", count: 64, points: 0, registrants: 14 },
+      { role: "Operations leader", source: "manager_share", action: "module_shared_via_copilot", count: 22, points: 2200, registrants: 8 },
+      { role: "Sales leader", source: "asn_recommendation", action: "asn_continued", count: 37, points: 0, registrants: 11 }
+    ];
+    const registrants = [
+      { learner: "New learner 1042", role: "Regional manager", source: "manager_share", firstTouch: "prompt_copied", converted: "Signed in after Drop" },
+      { learner: "New learner 1043", role: "Sales leader", source: "peer_share", firstTouch: "skill_file_downloaded", converted: "Started full ASN module" },
+      { learner: "New learner 1044", role: "Customer success", source: "asn_recommendation", firstTouch: "copilot_opened", converted: "Submitted results" },
+      { learner: "New learner 1045", role: "Operations leader", source: "manager_share", firstTouch: "module_shared_via_copilot", converted: "Shared onward" }
+    ];
+    function filteredAdminEvents() {
+      const role = document.getElementById("roleFilter")?.value || "all";
+      const source = document.getElementById("sourceFilter")?.value || "all";
+      return adminEvents.filter(item => (role === "all" || item.role === role) && (source === "all" || item.source === source));
+    }
+    function renderAdmin() {
+      const rows = filteredAdminEvents();
+      const totals = rows.reduce((acc, item) => {
+        acc.actions += item.count;
+        acc.points += item.points;
+        acc.registrants += item.registrants;
+        if (item.action === "results_submitted") acc.results += item.count;
+        return acc;
+      }, { actions: 0, points: Number(localStorage.getItem("frontierPoints") || 0), registrants: 0, results: 0 });
+      document.getElementById("adminMetrics").innerHTML = [
+        ["Tracked actions", totals.actions],
+        ["Results submitted", totals.results],
+        ["New registrants", totals.registrants],
+        ["Frontier Points", totals.points]
+      ].map(([label, value]) => `<div class="admin-metric"><span>${label}</span><strong>${value}</strong></div>`).join("");
+      document.getElementById("adminTable").innerHTML = `<thead><tr><th>Role</th><th>UTM source</th><th>Behavior</th><th>Count</th><th>Points</th><th>Registrants</th></tr></thead><tbody>${rows.map(item => `<tr><td>${item.role}</td><td>${item.source}</td><td>${item.action}</td><td>${item.count}</td><td>${item.points}</td><td>${item.registrants}</td></tr>`).join("")}</tbody>`;
+      document.getElementById("registrantTable").innerHTML = `<thead><tr><th>Learner</th><th>Role</th><th>Original share source</th><th>First signal</th><th>Registration trail</th></tr></thead><tbody>${registrants.map(item => `<tr><td>${item.learner}</td><td>${item.role}</td><td>${item.source}</td><td>${item.firstTouch}</td><td>${item.converted}</td></tr>`).join("")}</tbody>`;
+    }
+    document.getElementById("roleFilter").addEventListener("change", renderAdmin);
+    document.getElementById("sourceFilter").addEventListener("change", renderAdmin);
+    document.getElementById("resultsForm").addEventListener("submit", event => {
+      event.preventDefault();
+      const result = {
+        helped: document.getElementById("resultHelped").value,
+        moment: document.getElementById("resultMoment").value,
+        intent: document.getElementById("resultIntent").value,
+        summary: document.getElementById("resultSummary").value,
+        submittedAt: new Date().toISOString()
+      };
+      localStorage.setItem("skilldrop:lastResult", JSON.stringify(result));
+      awardPoints(250, "results-submitted");
+      document.getElementById("resultStatus").textContent = "Results submitted. 250 Frontier Points awarded. Suggested next step: share this SkillDrop with a colleague for 100 more points.";
+    });
   </script>
 </body>
 </html>
