@@ -1,0 +1,39 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/teams/v1.19/MicrosoftTeams.schema.json",
+  "manifestVersion": "1.19",
+  "version": "0.1.0",
+  "id": "9c2ae80f-253c-4772-86d7-3ed5e1bc8cb2",
+  "developer": {
+    "name": "SkillDrop Hackathon",
+    "websiteUrl": "https://microsoft.sharepoint.com/sites/skilldrop-team-42dbe9",
+    "privacyUrl": "https://microsoft.sharepoint.com/sites/skilldrop-team-42dbe9",
+    "termsOfUseUrl": "https://microsoft.sharepoint.com/sites/skilldrop-team-42dbe9"
+  },
+  "name": {
+    "short": "SkillDrop Test",
+    "full": "SkillDrop Custom App Install Test"
+  },
+  "description": {
+    "short": "A lightweight SkillDrop Teams app package for sideload testing.",
+    "full": "A lightweight SkillDrop Teams app package for testing whether custom app upload is allowed. It adds a personal SkillDrop tab only and requests no Graph permissions, bot installation, or admin consent."
+  },
+  "icons": {
+    "color": "color.png",
+    "outline": "outline.png"
+  },
+  "accentColor": "#B11F4B",
+  "staticTabs": [
+    {
+      "entityId": "skilldrop-home",
+      "name": "SkillDrop",
+      "contentUrl": "https://microsoft.sharepoint.com/sites/skilldrop-team-42dbe9",
+      "websiteUrl": "https://microsoft.sharepoint.com/sites/skilldrop-team-42dbe9",
+      "scopes": [
+        "personal"
+      ]
+    }
+  ],
+  "validDomains": [
+    "microsoft.sharepoint.com"
+  ]
+}

@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI Skills Navigator | Build your AI transformation plan</title>
+  <script>
+    (() => {
+      const param = new URLSearchParams(window.location.search).get("scoutTheme");
+      const theme = param || "light";
+      document.documentElement.setAttribute("data-theme", theme);
+    })();
+  </script>
+  <style>
+    :root {
+      color-scheme: light;
+      --cp-bg: #f7f4ef;
+      --cp-bg-elevated: #fcfbf8;
+      --cp-surface: #ffffff;
+      --cp-surface-soft: #f5f5f5;
+      --cp-border: #dedede;
+      --cp-border-strong: #919191;
+      --cp-text: #242424;
+      --cp-text-muted: #5c5c5c;
+      --cp-text-soft: #6f6f6f;
+      --cp-accent: #b11f4b;
+      --cp-accent-hover: #9a1a41;
+      --cp-accent-soft: rgba(177, 31, 75, 0.08);
+      --cp-accent-fg: #ffffff;
+      --cp-success: #16a34a;
+      --cp-danger: #dc2626;
+      --cp-warning: #f59e0b;
+      --cp-link: #0078d4;
+      --cp-shadow: 0 18px 48px rgba(0, 0, 0, 0.12);
+      --cp-overlay: rgba(255, 255, 255, 0.8);
+      --cp-panel: rgba(255, 255, 255, 0.86);
+      --cp-panel-strong: rgba(255, 255, 255, 0.96);
+      --cp-sheen: rgba(255, 255, 255, 0.55);
+      --cp-highlight: rgba(177, 31, 75, 0.12);
+    }
+    html[data-theme="dark"] {
+      color-scheme: dark;
+      --cp-bg: #3d3b3a;
+      --cp-bg-elevated: #343231;
+      --cp-surface: #292929;
+      --cp-surface-soft: #2e2e2e;
+      --cp-border: #474747;
+      --cp-border-strong: #5f5f5f;
+      --cp-text: #dedede;
+      --cp-text-muted: #919191;
+      --cp-text-soft: #b0b0b0;
+      --cp-accent: #fd8ea1;
+      --cp-accent-hover: #fb7b91;
+      --cp-accent-soft: rgba(253, 142, 161, 0.14);
+      --cp-accent-fg: #1a1a1a;
+      --cp-success: #4ade80;
+      --cp-danger: #f87171;
+      --cp-warning: #fbbf24;
+      --cp-link: #4da6ff;
+      --cp-shadow: 0 18px 48px rgba(0, 0, 0, 0.32);
+      --cp-overlay: rgba(41, 41, 41, 0.88);
+      --cp-panel: rgba(41, 41, 41, 0.72);
+      --cp-panel-strong: rgba(41, 41, 41, 0.96);
+      --cp-sheen: rgba(255, 255, 255, 0.04);
+      --cp-highlight: rgba(253, 142, 161, 0.12);
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--cp-bg); color: var(--cp-text); font: 15px/1.6 "Segoe UI", Aptos, Calibri, -apple-system, BlinkMacSystemFont, sans-serif; }
+    button { font: inherit; cursor: pointer; }
+    .player { min-height: 100vh; }
+    .topbar { height: 60px; display: flex; align-items: center; padding: 0 10px; border-bottom: 1px solid var(--cp-border); background: var(--cp-surface); }
+    .topbar button { height: 32px; border: 1px solid var(--cp-border); border-radius: 0.625rem; background: var(--cp-surface); color: var(--cp-text); padding: 0 12px; }
+    .topbar > button:first-child { width: 96px; }
+    .menu-button { width: 32px; padding: 0 !important; margin-left: 8px; font-size: 20px; }
+    .playing-row { height: 60px; display: grid; place-items: center; text-align: center; font-size: 12px; line-height: 1.2; color: var(--cp-text); }
+    .now-playing { text-align: center; }
+    .now-playing small { display: block; color: var(--cp-text-muted); margin-top: 2px; }
+    .stage { max-width: 943px; margin: 0 auto; padding: 32px 16px 0; }
+    .started { height: 16px; border-top: 1px solid var(--cp-border); position: relative; margin-bottom: 10px; text-align: center; }
+    .started span { position: relative; top: -13px; background: var(--cp-bg); padding: 0 10px; color: var(--cp-text-muted); font-size: 12px; }
+    .action-bar { display: flex; justify-content: center; gap: 10px; margin-bottom: 32px; align-items: center; }
+    .action-bar button { border: 1px solid var(--cp-border); border-radius: 0.625rem; background: var(--cp-surface); color: var(--cp-text); padding: 6px 14px; }
+    .teams-btn { background: #0078d4 !important; color: white !important; border-color: #0078d4 !important; padding: 8px 16px !important; position: relative; }
+    .teams-dropdown { display: none; position: absolute; top: 100%; right: 0; background: var(--cp-surface); border: 1px solid var(--cp-border); border-radius: 6px; box-shadow: 0 4px 8px rgba(0,0,0,0.15); z-index: 10; min-width: 200px; margin-top: 6px; }
+    .teams-dropdown.open { display: block; }
+    .teams-dropdown button { display: block; width: 100%; text-align: left; border: 0; padding: 10px 14px; background: transparent; color: var(--cp-text); border-radius: 0; }
+    .teams-dropdown button:hover { background: var(--cp-accent-soft); }
+    .teams-dropdown button:first-child { border-radius: 6px 6px 0 0; }
+    .teams-dropdown button:last-child { border-radius: 0 0 6px 6px; }
+    .content-card { background: var(--cp-surface); border: 1px solid var(--cp-border); border-radius: 0.625rem; min-height: 550px; padding: 32px; }
+    .content-header { display: flex; align-items: center; gap: 12px; }
+    .complete { width: 20px; height: 20px; border: 2px solid var(--cp-success); border-radius: 50%; color: var(--cp-success); display: grid; place-items: center; font-size: 13px; }
+    h1 { font-size: 29px; line-height: 1.15; margin: 0; font-weight: 650; }
+    .unit-label { display: inline-block; margin: 28px 0 18px; padding: 5px 12px; border: 1px solid var(--cp-border); border-radius: 0.625rem; color: var(--cp-text-muted); }
+    .lesson-body { max-width: 850px; color: var(--cp-text); }
+    .lesson-body p { margin: 0 0 22px; font-size: 16px; }
+    .lesson-body h2 { font-size: 22px; margin: 28px 0 12px; }
+    .lesson-body ul { padding-left: 22px; }
+    .lesson-body li { margin: 6px 0; }
+    .quote { padding: 14px 18px; margin: 24px 0; border-left: 4px solid var(--cp-accent); background: var(--cp-accent-soft); font-weight: 600; }
+    .skilldrop { margin-top: 30px; padding: 18px; border: 1px dashed var(--cp-accent); border-radius: 0.625rem; background: var(--cp-accent-soft); }
+    .skilldrop h2 { font-size: 18px; margin: 0 0 4px; }
+    .skilldrop p { margin: 0 0 12px; color: var(--cp-text-muted); }
+    .skilldrop button { border: 0; border-radius: 0.625rem; background: var(--cp-accent); color: var(--cp-accent-fg); padding: 8px 13px; font-weight: 650; }
+    .next-wrap { display: flex; justify-content: center; margin: 32px 0 80px; }
+    .next-wrap button { min-width: 96px; border: 1px solid var(--cp-border); border-radius: 0.625rem; background: var(--cp-surface); color: var(--cp-text); padding: 9px 17px; }
+    .dialog-backdrop { position: fixed; inset: 0; display: none; background: var(--cp-overlay); z-index: 5; }
+    .dialog-backdrop.open { display: block; }
+    .nav-dialog { width: min(910px, calc(100% - 32px)); max-height: calc(100vh - 48px); overflow: auto; margin: 24px auto; padding: 0 0 18px; border: 1px solid var(--cp-border); border-radius: 0.625rem; background: var(--cp-surface); box-shadow: var(--cp-shadow); }
+    .nav-head { display: flex; justify-content: space-between; align-items: center; padding: 0 24px; height: 56px; border-bottom: 1px solid var(--cp-border); }
+    .nav-head h2 { margin: 0; font-size: 22px; }
+    .nav-head button { border: 1px solid var(--cp-border); border-radius: 0.625rem; background: var(--cp-surface); color: var(--cp-text); width: 32px; height: 32px; }
+    .course-node { margin: 16px; border: 1px solid var(--cp-border); border-radius: 0.625rem; overflow: hidden; }
+    .course-title { padding: 14px 18px; font-weight: 650; background: var(--cp-surface-soft); }
+    .unit-button { display: flex; width: 100%; justify-content: space-between; border: 0; border-top: 1px solid var(--cp-border); background: var(--cp-surface); color: var(--cp-text); padding: 13px 18px; text-align: left; }
+    .unit-button:hover, .unit-button.active { background: var(--cp-accent-soft); }
+    .status { color: var(--cp-success); font-size: 13px; }
+    .browse { min-height: 100vh; display: none; background: var(--cp-bg); }
+    .browse.active { display: flex; }
+    .side-nav { position: fixed; inset: 14px auto 14px 14px; width: 246px; border-radius: 0; background: transparent; padding: 25px 0; }
+    .brand { height: 36px; padding: 7px 10px; font-weight: 650; }
+    .side-group { margin-top: 14px; }
+    .side-nav button { display: block; width: 100%; height: 40px; border: 0; border-radius: 6px; background: transparent; color: var(--cp-text); text-align: left; padding: 0 10px; }
+    .side-nav button:hover, .side-nav button.active { background: var(--cp-accent-soft); outline: 2px solid var(--cp-text); outline-offset: -2px; }
+    .account { position: absolute; inset: auto 10px 25px; }
+    .account button { height: 42px; }
+    .browse-main { flex: 1; min-height: 100vh; margin-left: 260px; padding: 35px 24px 74px; }
+    .browse-shell { max-width: 1200px; margin: 0 auto; }
+    .notice { min-height: 67px; padding: 12px 48px; border-bottom: 1px solid var(--cp-border); display: flex; align-items: center; justify-content: space-between; font-size: 13px; }
+    .notice button, .primary, .secondary { border: 1px solid var(--cp-border); border-radius: 6px; background: var(--cp-surface); color: var(--cp-text); padding: 7px 13px; }
+    .browse h1 { font-size: 29px; line-height: 1.2; margin: 80px 0 28px; font-weight: 650; max-width: 600px; }
+    .browse h2 { font-size: 22px; margin: 0 0 24px; }
+    .center-title { text-align: center; margin: 0 0 40px !important; font-size: 22px !important; }
+    .browse-section { margin: 36px 0; }
+    .browse-card { border: 1px solid var(--cp-border); border-radius: 8px; background: var(--cp-surface); padding: 14px; margin: 16px 0; min-height: 147px; }
+    .recommendations { display: flex; gap: 20px; overflow: hidden; }
+    .recommendations .browse-card { flex: 0 0 350px; min-height: 393px; padding: 0; overflow: hidden; }
+    .recommendations .browse-card img { display: block; width: 100%; height: 200px; object-fit: cover; }
+    .recommendations .browse-card h3, .recommendations .browse-card .meta, .recommendations .browse-card button { margin-left: 14px; margin-right: 14px; }
+    .recommendations .browse-card h3 { margin-top: 18px; }
+    .streak { display: flex; margin-left: auto; width: 390px; border-radius: 28px; overflow: hidden; background: linear-gradient(110deg,#eadff2,#f8d3bf,#f8ecbf); }
+    .streak div { flex: 1; padding: 16px 22px; border-right: 3px solid var(--cp-surface); }
+    .streak img { width: 40px; height: 40px; float: left; margin-right: 10px; }
+    .streak strong { display: block; font-size: 20px; }
+    .streak small { font-size: 13px; }
+    .browse-card h3 { margin: 0 0 30px; font-size: 16px; }
+    .browse-card .meta { color: var(--cp-text-muted); font-size: 13px; margin-bottom: 22px; }
+    .browse-card .progress { height: 4px; background: var(--cp-surface-soft); margin-bottom: 16px; }
+    .browse-card .progress span { display: block; height: 100%; width: 24%; background: var(--cp-accent); }
+    .playlist-hero { margin: 0 auto 40px; max-width: 499px; }
+    .playlist-hero .meta { text-align: left; }
+    .playlist-hero h1 { margin: 28px 0 14px; }
+    .playlist-hero p { color: var(--cp-text-muted); }
+    .playlist-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 26px; }
+    .primary { background: var(--cp-accent); color: var(--cp-accent-fg); border-color: var(--cp-accent); }
+    .playlist-list { max-width: 499px; margin: 0 auto; }
+    .playlist-item { border: 1px solid var(--cp-border); border-radius: 8px; padding: 18px; margin: 14px 0; background: var(--cp-surface); }
+    .playlist-item h3 { margin: 0 0 8px; font-size: 16px; }
+    .playlist-item p { margin: 0; color: var(--cp-text-muted); font-size: 13px; }
+    .footer { margin-top: 60px; padding-top: 24px; border-top: 1px solid var(--cp-border); color: var(--cp-text-muted); font-size: 12px; text-align: center; }
+    .hidden { display: none !important; }
+    @media (max-width: 680px) {
+      .stage { padding-top: 24px; }
+      .side-nav { position: static; margin: 14px; width: calc(100% - 28px); }
+      .browse { display: block; }
+      .browse-main { width: auto; margin-left: 0; padding: 20px 14px 50px; }
+      .account { position: static; margin-top: 20px; }
+      .content-card { padding: 22px; }
+    }
+  </style>
+</head>
+<body>
+  <div id="browseForYou" class="browse">
+    <aside class="side-nav">
+      <div class="brand">AI Skills Navigator</div>
+      <div class="side-group"><button class="active" data-route="#for-you">For you</button><button>Explore content</button><button data-route="#playlists">Skilling playlists</button><button>Credentials</button><button>Reporting</button><button>Training Services Partners</button></div>
+      <div class="account"><button>Feedback and help</button><button>William Nations</button></div>
+    </aside>
+    <main class="browse-main"><div class="notice"><span><strong>ⓘ　Profile changes are here</strong><br>Manage your profile details in one place in AI Skills Navigator.</span><button>Find out more</button><button>×</button></div><div class="browse-shell">
+      <div style="display:flex;align-items:flex-end;gap:30px"><h1>Welcome back, what do you want to learn today?</h1><div class="streak"><div><img src="https://aiskillsnavigator.microsoft.com/gamification/streak-fire.png" alt=""><strong>1 week</strong><small>Current streak</small></div><div><img src="https://aiskillsnavigator.microsoft.com/gamification/streak-trophy.png" alt=""><strong>1 week</strong><small>Best streak</small></div></div></div>
+      <section class="browse-section"><h2>Recommendations tailored to your learning</h2><div class="recommendations"><div class="browse-card" data-route="#playlist" style="cursor:pointer"><img src="https://img.youtube.com/vi/YViiQEr2qrk/hqdefault.jpg" alt=""><div class="meta">15 min · Executive-level guided video</div><h3>AI Leadership workshop</h3><button class="secondary">▣ Video</button></div><div class="browse-card"><img src="https://img.youtube.com/vi/HXy3J1mGHRE/hqdefault.jpg" alt=""><div class="meta">39 min · WorkLab podcast</div><h3>AI and automation expert on how leaders use AI agents to get ahead | Pascal Bornet</h3><button class="secondary">▣ Video</button></div><div class="browse-card" data-route="#playlist" style="cursor:pointer"><img src="https://learn.microsoft.com/en-us/training/wwl-data-ai/leverage-ai-tools/media/01-readiness-drivers.png" alt=""><div class="meta">Microsoft Learn module</div><h3>Leverage AI tools and resources for your business</h3><button class="secondary">▣ Module</button></div><div class="browse-card"><img src="https://learn.microsoft.com/en-us/training/wwl-data-ai/create-business-value/media/01-readiness-drivers.png" alt=""><div class="meta">Microsoft Learn module</div><h3>Create business value with AI</h3><button class="secondary">▣ Module</button></div><div class="browse-card"><img src="https://learn.microsoft.com/en-us/training/wwl-data-ai/scale-ai/media/02-becoming-frontier.png" alt=""><div class="meta">Microsoft Learn module</div><h3>Scale AI in your organization</h3><button class="secondary">▣ Module</button></div></div></section>
+      <section class="browse-section"><h2>Pick up where you left off</h2><div class="browse-card"><h3>Build your AI transformation plan</h3><div class="meta">Progress: 0%</div><div class="progress"><span></span></div><button class="secondary" data-route="#player">Start course</button></div></section>
+      <div class="footer">Privacy &amp; Cookies　 Terms of Use　 Trademark　 © Microsoft 2026</div>
+    </div></main>
+  </div>
+  <div id="browsePlaylists" class="browse">
+    <aside class="side-nav"><div class="brand">AI Skills Navigator</div><div class="side-group"><button data-route="#for-you">For you</button><button>Explore content</button><button class="active">Skilling playlists</button><button>Credentials</button><button>Reporting</button><button>Training Services Partners</button></div><div class="account"><button>Feedback and help</button><button>William Nations</button></div></aside>
+    <main class="browse-main"><div class="browse-shell"><h1 class="center-title">Skilling playlists as unique as you or your team</h1><div class="browse-card"><h3>Build your AI transformation plan</h3><div class="meta">2 sections · 5 learning objects</div><button class="primary" data-route="#playlist">Continue</button></div><div class="browse-card"><h3>Learn AI leadership from Microsoft executives</h3><div class="meta">1%</div><button class="primary" data-route="#playlist">Continue</button></div><div class="browse-card"><h3>AI readiness and business value</h3><div class="meta">Recommended from your role</div><button class="primary" data-route="#playlist">Start course</button></div><div class="footer">Privacy &amp; Cookies　 Terms of Use　 Trademark　 © Microsoft 2026</div></div></main>
+  </div>
+  <div id="browsePlaylist" class="browse">
+    <aside class="side-nav"><div class="brand">AI Skills Navigator</div><div class="side-group"><button data-route="#for-you">For you</button><button>Explore content</button><button class="active" data-route="#playlists">Skilling playlists</button><button>Credentials</button><button>Reporting</button><button>Training Services Partners</button></div><div class="account"><button>Feedback and help</button><button>William Nations</button></div></aside>
+    <main class="browse-main"><div class="browse-shell"><a href="#playlists">← Back</a><div class="playlist-hero"><div class="meta">2 sections　·　5 learning objects　·　Team playlist</div><h1>Build your AI transformation plan</h1><p>Move from AI strategy to execution with guidance for building a focused transformation plan. You’ll learn how to prioritize outcomes, align stakeholders, and turn AI ambition into accountable action.</p><div class="progress"><span style="display:block;width:0%;height:100%;background:var(--cp-accent)"></span></div><div class="playlist-actions"><button class="primary" data-route="#player">Start learning</button><button class="secondary">Assign</button><button class="secondary">Add content</button></div><div style="margin-top:20px;padding:16px;background:var(--cp-surface-soft);border-radius:8px;border-left:4px solid var(--cp-accent)"><p style="margin:0;font-size:14px;color:var(--cp-text-muted)"><strong>Microskilling in Teams</strong><br>SkillDrop is launched from a specific learning object after the learner identifies a useful topic to share.</p></div></div><div class="playlist-list"><div class="playlist-item"><h3>Move from strategy to action</h3><p>AI Leadership workshop</p></div><div class="playlist-item"><h3>Scale what works</h3><p>Pascal Bornet video · Leverage AI tools · Create business value · Scale AI in your organization</p></div></div><div class="footer">Privacy &amp; Cookies　 Terms of Use　 Trademark　 © Microsoft 2026</div></div></main>
+  </div>
+  <div id="playerView" class="player hidden">
+    <header class="topbar">
+      <button id="exitButton" type="button" aria-label="Back"></button>
+      <button class="menu-button" id="menuButton" type="button" aria-label="Show navigation">☰</button>
+    </header>
+    <div class="playing-row"><div class="now-playing"><span id="nowPlaying"></span><small>From Build your AI transformation plan</small></div></div>
+    <main class="stage">
+      <div class="started"><span>You started Build your AI transformation plan</span></div>
+      <div class="action-bar">
+        <button type="button" id="summaryButton">Summarize module</button>
+        <button type="button" id="podcastButton">Turn module into podcast</button>
+        <div style="position:relative;margin-left:auto;">
+          <button type="button" id="teamsButton" class="teams-btn">📤 Exec Summary to Teams</button>
+          <div class="teams-dropdown" id="teamsDropdown">
+            <button type="button" id="sendToMyself">👤 Send to myself</button>
+            <button type="button" id="sendToOther">👥 Send to someone else</button>
+          </div>
+        </div>
+      </div>
+      <article class="content-card" id="contentCard"></article>
+      <div class="next-wrap"><button id="nextButton" type="button">Next</button></div>
+    </main>
+  </div>
+  <div class="dialog-backdrop" id="navBackdrop" role="dialog" aria-modal="true" aria-label="Player Navigation">
+    <section class="nav-dialog">
+      <div class="nav-head"><h2>Navigation</h2><button id="closeNav" type="button" aria-label="Close">×</button></div>
+      <div class="course-node"><div class="course-title">Build your AI transformation plan <span class="status">In progress</span></div><div id="unitList"></div></div>
+    </section>
+  </div>
+  <script>
+    const units = [
+      {
+        title: "AI Leadership workshop",
+        objective: "Translate AI strategy into a practical rollout plan aligned to role, business priorities, and organizational constraints.",
+        quote: "Move from AI strategy to execution with guidance for building a focused transformation plan.",
+        body: `<p><strong>Section:</strong> Move from strategy to action</p><p><strong>Source:</strong> AI Skills Navigator catalog video · YouTube source ID YViiQEr2qrk</p><p>AI to Impact is a 15-minute, executive-level guided video designed for leaders responsible for guiding AI adoption across their teams. Rather than a lecture, the video is interactive, combining facilitated exercises and real-world scenarios to help leaders translate AI strategy into action.</p><h2>What you learn</h2><ul><li>Explore real-world AI leadership scenarios.</li><li>Complete exercises that help translate AI strategy into practical actions.</li><li>Leave with a clearer AI rollout plan connected to business priorities.</li></ul>`,
+        drop: {
+          question: "What should an AI rollout plan connect first?",
+          choices: ["A tool launch", "A business priority and accountable action", "A broad inspiration campaign"],
+          correct: "B",
+          practice: "Name one AI priority and the first accountable action your team should take."
+        }
+      },
+      {
+        title: "AI and automation expert on how leaders use AI agents to get ahead | Pascal Bornet",
+        objective: "Understand how leaders can design agentic AI workflows, run high-impact pilots, and build human-agent teams.",
+        quote: "People-centric transformation and education are critical success factors for agentic AI.",
+        body: `<p><strong>Section:</strong> Scale what works</p><p><strong>Source:</strong> WorkLab podcast video · YouTube source ID HXy3J1mGHRE</p><p>AI agents can become essential team members when deployed thoughtfully in business workflows. Pascal Bornet joins Molly Wood to share frameworks for agentic AI, high-impact pilots, and the human skills that set Frontier Firms apart.</p><h2>Chapter outline</h2><ul><li>Defining agentic artificial intelligence</li><li>From apps to agents: the paradigm shift</li><li>The SPA framework: sensing, planning, acting, reflecting</li><li>Real-world examples and business impact</li><li>Humics: uniquely human abilities</li><li>Humans and agents: building hybrid teams</li><li>Measuring success: metrics for humans and agents</li><li>Blueprint for getting started with agentic AI</li></ul>`,
+        drop: {
+          question: "What makes an agentic AI pilot stronger?",
+          choices: ["A clear workflow and success measure", "A longer list of possible use cases", "A fully autonomous launch on day one"],
+          correct: "A",
+          practice: "Pick one workflow where an AI agent could sense, plan, act, and reflect with human oversight."
+        }
+      },
+      {
+        title: "Leverage AI tools and resources for your business",
+        objective: "Drive business transformation with Azure cloud and AI while securing AI with governance, compliance, and responsible practices.",
+        quote: "AI is more than a set of algorithms—it’s a toolbox of capabilities that help people make better decisions, faster.",
+        body: `<p><strong>Section:</strong> Scale what works</p><p><strong>Source:</strong> Microsoft Learn module · module-2fb6bb6b84300d3c7bf5d16a7e6c501490c78185ad35a7536e714ecedf45cb1e</p><p>This module explores how to build a successful AI strategy that drives real business outcomes. It is organized around five drivers of AI readiness: business strategy, technology and data strategy, AI strategy and experience, organization and culture, and AI governance.</p><h2>What's in this module</h2><ul><li>Introduction</li><li>Identify basic AI technology concepts</li><li>Understand the foundations of AI</li><li>Learn the Microsoft AI approach</li><li>Explore Copilot and agents at work</li><li>Drive transformation with Azure cloud and AI platforms</li><li>Secure AI for a strong foundation</li><li>Summary</li></ul><h2>SkillDrop opportunity</h2><p>Turn the "Explore Copilot and agents at work" unit into a Drop that asks leaders to identify one workflow where an agent could improve speed, consistency, or decision quality.</p>`,
+        drop: {
+          question: "Which factor makes an AI use case strongest for a first pilot?",
+          choices: ["The newest model is available", "It maps to a business outcome and can be measured", "It can be announced quickly"],
+          correct: "B",
+          practice: "Name one AI use case in your organization and score it against impact, feasibility, time to value, measurability, and risk."
+        }
+      },
+      {
+        title: "Create business value with AI",
+        objective: "Turn AI experiments into dependable drivers of measurable business outcomes.",
+        quote: "Start with outcomes your organization cares about—customer satisfaction, operational efficiency, revenue growth, or risk reduction.",
+        body: `<p><strong>Section:</strong> Scale what works</p><p><strong>Source:</strong> Microsoft Learn module · module-2d2a4814ae35255b232b6e20ac7a4f8fed913cd708f3ea4803d38c8dd0f9c384</p><p>This module teaches leaders to move AI from experiments to dependable business value using five essential readiness drivers aligned to Microsoft's agentic AI adoption maturity model.</p><h2>What's in this module</h2><ul><li>Introduction</li><li>Business strategy</li><li>Technology and data strategy</li><li>AI strategy and experience</li><li>Organization and culture</li><li>AI governance and security</li><li>Summarize AI drivers for business value</li></ul><h2>Key framework</h2><p>Prioritize use cases by business impact, feasibility, time to value, measurability, and risk. Then tie each use case to a small set of meaningful KPIs.</p><h2>SkillDrop opportunity</h2><p>Create a practice prompt that asks a learner to score one AI use case against impact, feasibility, time to value, measurability, and risk.</p>`,
+        drop: {
+          question: "What should leaders define before scaling an AI experiment?",
+          choices: ["A KPI baseline and success measure", "A larger launch audience", "A more technical architecture diagram"],
+          correct: "A",
+          practice: "Choose one AI experiment and define the KPI that would justify scaling it."
+        }
+      },
+      {
+        title: "Scale AI in your organization",
+        objective: "Move beyond pilots by aligning strategy, governance, operating model, and business-user enablement.",
+        quote: "Scale AI safely, responsibly, and with measurable results.",
+        body: `<p><strong>Section:</strong> Scale what works</p><p><strong>Source:</strong> Microsoft Learn module · module-06fa3bf2ab928f6d336e6642ec6e4e95cbdb34119f4240b88922554efcae7092</p><p>This module provides insights for full AI adoption in an organization. It covers AI strategy, assigning responsibilities, and empowering business users and subject matter experts to use AI themselves.</p><h2>What's in this module</h2><ul><li>Introduction</li><li>Unlock AI value</li><li>Organize for AI success</li><li>Empower business users with AI</li><li>Empower subject matter experts with AI</li><li>Summary</li></ul><h2>Four-step framework</h2><ul><li>Educate and inspire leaders</li><li>Assess AI readiness</li><li>Map the AI journey</li><li>Start building the agentic future</li></ul><h2>SkillDrop opportunity</h2><p>Ask the learner to identify who owns strategy, governance, business alignment, and execution for one AI initiative in their organization.</p>`,
+        drop: {
+          question: "What helps AI scale beyond isolated pilots?",
+          choices: ["More experiments with no owner", "Clear roles, guardrails, and business-user enablement", "A single tool mandate"],
+          correct: "B",
+          practice: "Identify who owns strategy, governance, business alignment, and execution for one AI initiative."
+        }
+      }
+    ];
+    let current = 0;
+    const completed = new Set();
+    const contentCard = document.getElementById("contentCard");
+    const unitList = document.getElementById("unitList");
+    function renderNav() {
+      unitList.innerHTML = units.map((unit, index) => `<button class="unit-button ${index === current ? "active" : ""}" data-index="${index}" type="button"><span>${unit.title}</span><span class="status">${completed.has(index) ? "Complete" : index <= current ? "In progress" : ""}</span></button>`).join("");
+      unitList.querySelectorAll("button").forEach(button => button.addEventListener("click", () => { current = Number(button.dataset.index); closeNav(); render(); }));
+    }
+    function render() {
+      const unit = units[current];
+      document.getElementById("nowPlaying").textContent = `Now Playing: ${unit.title} (Unit ${current + 1}/${units.length})`;
+      contentCard.innerHTML = `<div class="content-header"><span class="complete">${completed.has(current) ? "✓" : ""}</span><h1>${unit.title}</h1></div><div class="unit-label">Unit ${current + 1}/${units.length}</div><div class="lesson-body">${unit.body}</div><div class="quote">“${unit.quote}”</div><section class="skilldrop"><h2>SkillDrop this topic</h2><p>Share this specific learning object into Teams as a predict, reveal, and apply Drop.</p><button id="dropButton" type="button">Send this topic to Teams</button><span id="dropStatus" class="status"></span></section>`;
+      document.getElementById("dropButton").addEventListener("click", () => launchSkillDrop(unit));
+      document.getElementById("nextButton").textContent = current === units.length - 1 ? "Finish" : "Next";
+      renderNav();
+    }
+    function closeNav() { document.getElementById("navBackdrop").classList.remove("open"); }
+    document.getElementById("menuButton").addEventListener("click", () => document.getElementById("navBackdrop").classList.add("open"));
+    document.getElementById("closeNav").addEventListener("click", closeNav);
+    document.getElementById("navBackdrop").addEventListener("click", event => { if (event.target.id === "navBackdrop") closeNav(); });
+    document.getElementById("nextButton").addEventListener("click", () => { completed.add(current); if (current < units.length - 1) current += 1; render(); window.scrollTo({ top: 0, behavior: "smooth" }); });
+    document.getElementById("exitButton").addEventListener("click", () => { document.getElementById("nowPlaying").textContent = "Course overview"; });
+    document.getElementById("summaryButton").addEventListener("click", () => { document.getElementById("summaryButton").textContent = "Summary ready"; });
+    document.getElementById("podcastButton").addEventListener("click", () => { document.getElementById("podcastButton").textContent = "Podcast queued"; });
+    document.getElementById("teamsButton").addEventListener("click", () => { document.getElementById("teamsDropdown").classList.toggle("open"); });
+    document.getElementById("sendToMyself").addEventListener("click", () => { alert("Send Exec Summary to yourself for reflection"); document.getElementById("teamsDropdown").classList.remove("open"); });
+    document.getElementById("sendToOther").addEventListener("click", () => { alert("Select who to send or share the Exec Summary with"); document.getElementById("teamsDropdown").classList.remove("open"); });
+    function showRoute() {
+      const route = window.location.hash || "#for-you";
+      document.querySelectorAll(".browse").forEach(view => view.classList.remove("active"));
+      document.getElementById("playerView").classList.add("hidden");
+      if (route === "#player") document.getElementById("playerView").classList.remove("hidden");
+      else if (route === "#playlists") document.getElementById("browsePlaylists").classList.add("active");
+      else if (route === "#playlist") document.getElementById("browsePlaylist").classList.add("active");
+      else document.getElementById("browseForYou").classList.add("active");
+    }
+    document.querySelectorAll("[data-route]").forEach(button => button.addEventListener("click", () => { window.location.hash = button.dataset.route.slice(1); }));
+    window.addEventListener("hashchange", showRoute);
+    showRoute();
+    render();
+    async function launchSkillDrop(unit) {
+      const skillDropItem = {
+        Title: `${unit.title} - SkillDrop`,
+        PlaylistName: "Build your AI transformation plan",
+        RecipientEmail: "william.nations@microsoft.com",
+        NuggetQuestion: unit.drop.question,
+        ChoiceA: unit.drop.choices[0],
+        ChoiceB: unit.drop.choices[1],
+        ChoiceC: unit.drop.choices[2],
+        CorrectChoice: unit.drop.correct,
+        Fact1Title: "Course",
+        Fact1Value: "Build your AI transformation plan",
+        Fact2Title: "Framework",
+        Fact2Value: unit.objective,
+        Fact3Title: "Source",
+        Fact3Value: `AI Skills Navigator · ${unit.title}`,
+        Fact4Title: "Practice",
+        Fact4Value: unit.quote,
+        ScenarioPrompt: unit.drop.practice
+      };
+       
+      // POST to SharePoint to trigger the flow
+      const sharePointSiteUrl = "https://microsoft.sharepoint.com/sites/skilldrop-team-42dbe9";
+      const listId = "77a33ccb-6605-47e5-afa2-aff1e06b4c01";
+      const graphEndpoint = `${sharePointSiteUrl}/_api/lists('${listId}')/items`;
+       
+      try {
+        // Call the proxy server which will trigger the Power Automate flow
+        const proxyEndpoint = "http://127.0.0.1:8764/skilldrop";
+        const response = await fetch(proxyEndpoint, {
+          method: "POST",
+          headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(skillDropItem)
+        });
+         
+        if (response.ok || response.status === 201) {
+          alert("SkillDrop launched! Check your Teams chat with the Flow bot in 10 seconds.");
+          console.log("SkillDrop item created:", skillDropItem);
+          document.getElementById("dropStatus").textContent = " Sent to Teams";
+        } else {
+          console.log("Response status:", response.status);
+          alert("SkillDrop configured! The Teams flow will trigger when the item is created in SharePoint.");
+          console.log("SkillDrop Payload:", skillDropItem);
+          document.getElementById("dropStatus").textContent = " Configured";
+        }
+      } catch (err) {
+        console.error("SharePoint create error (expected in sandbox):", err);
+        console.log("SkillDrop Payload would send:", skillDropItem);
+        alert("SkillDrop demo ready! In production, this triggers the Power Automate flow via SharePoint.");
+        document.getElementById("dropStatus").textContent = " Preview payload ready";
+      }
+    }
+  </script>
+</body>
+</html>
