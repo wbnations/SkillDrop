@@ -1,21 +1,21 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/teams/v1.19/MicrosoftTeams.schema.json",
   "manifestVersion": "1.19",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "id": "9c2ae80f-253c-4772-86d7-3ed5e1bc8cb2",
   "developer": {
     "name": "SkillDrop Hackathon",
-    "websiteUrl": "https://microsoft.sharepoint.com/sites/skilldrop-team-42dbe9",
-    "privacyUrl": "https://microsoft.sharepoint.com/sites/skilldrop-team-42dbe9",
-    "termsOfUseUrl": "https://microsoft.sharepoint.com/sites/skilldrop-team-42dbe9"
+    "websiteUrl": "https://wbnations.github.io/SkillDrop/",
+    "privacyUrl": "https://wbnations.github.io/SkillDrop/",
+    "termsOfUseUrl": "https://wbnations.github.io/SkillDrop/"
   },
   "name": {
-    "short": "SkillDrop Test",
-    "full": "SkillDrop Custom App Install Test"
+    "short": "SkillDrop",
+    "full": "SkillDrop Teams Learning Experience"
   },
   "description": {
-    "short": "A lightweight SkillDrop Teams app package for sideload testing.",
-    "full": "A lightweight SkillDrop Teams app package for testing whether custom app upload is allowed. It adds a personal SkillDrop tab only and requests no Graph permissions, bot installation, or admin consent."
+    "short": "Bring AI Skills Navigator concepts into Teams.",
+    "full": "A lightweight Teams app that hosts the full SkillDrop experience: a Teams-native learning interaction, quick check, practice prompt, and continuation path back to AI Skills Navigator."
   },
   "icons": {
     "color": "color.png",
@@ -24,16 +24,17 @@
   "accentColor": "#B11F4B",
   "staticTabs": [
     {
-      "entityId": "skilldrop-home",
+      "entityId": "skilldrop-full",
       "name": "SkillDrop",
-      "contentUrl": "https://microsoft.sharepoint.com/sites/skilldrop-team-42dbe9",
-      "websiteUrl": "https://microsoft.sharepoint.com/sites/skilldrop-team-42dbe9",
+      "contentUrl": "https://wbnations.github.io/SkillDrop/#teams-full",
+      "websiteUrl": "https://wbnations.github.io/SkillDrop/#teams-full",
       "scopes": [
         "personal"
       ]
     }
   ],
   "validDomains": [
-    "microsoft.sharepoint.com"
+    "wbnations.github.io",
+    "teams.microsoft.com"
   ]
 }

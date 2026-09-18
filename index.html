@@ -155,6 +155,36 @@
     .playlist-item h3 { margin: 0 0 8px; font-size: 16px; }
     .playlist-item p { margin: 0; color: var(--cp-text-muted); font-size: 13px; }
     .footer { margin-top: 60px; padding-top: 24px; border-top: 1px solid var(--cp-border); color: var(--cp-text-muted); font-size: 12px; text-align: center; }
+    .drop-view { display: none; min-height: 100vh; background: var(--cp-bg); padding: 32px 16px; }
+    .drop-view.active { display: block; }
+    .browser-shell, .teams-shell { max-width: 1080px; margin: 0 auto; border: 1px solid var(--cp-border); border-radius: 16px; background: var(--cp-surface); box-shadow: 0 0 2px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.14); overflow: hidden; }
+    .browser-chrome { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-bottom: 1px solid var(--cp-border); background: var(--cp-surface-soft); color: var(--cp-text-muted); font-size: 13px; }
+    .url-pill { flex: 1; border: 1px solid var(--cp-border); border-radius: 999px; padding: 6px 12px; background: var(--cp-surface); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .drop-page { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 24px; padding: 28px; }
+    .drop-card { border: 1px solid var(--cp-border); border-radius: 16px; background: var(--cp-surface); padding: 24px; }
+    .eyebrow { margin: 0 0 8px; color: var(--cp-accent); font-weight: 650; font-size: 13px; letter-spacing: 0.02em; text-transform: uppercase; }
+    .drop-card h1, .drop-card h2 { margin: 0 0 12px; }
+    .drop-card p { margin: 0 0 16px; color: var(--cp-text-muted); }
+    .drop-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
+    .link-button { display: inline-flex; align-items: center; justify-content: center; min-height: 40px; border: 1px solid var(--cp-border); border-radius: 0.625rem; padding: 8px 14px; background: var(--cp-surface); color: var(--cp-text); text-decoration: none; font-weight: 650; }
+    .link-button.primary { background: var(--cp-accent); border-color: var(--cp-accent); color: var(--cp-accent-fg); }
+    .choice-list { display: grid; gap: 10px; margin: 14px 0; }
+    .choice-list button { text-align: left; border: 1px solid var(--cp-border); border-radius: 0.625rem; padding: 12px; background: var(--cp-surface); color: var(--cp-text); }
+    .choice-list button.selected { border-color: var(--cp-accent); background: var(--cp-accent-soft); }
+    .drop-status-panel { border: 1px solid var(--cp-border); border-radius: 16px; padding: 18px; background: var(--cp-surface-soft); }
+    .metric-row { display: flex; justify-content: space-between; gap: 16px; padding: 10px 0; border-bottom: 1px solid var(--cp-border); }
+    .metric-row:last-child { border-bottom: 0; }
+    .teams-shell { display: grid; grid-template-columns: 72px 260px minmax(0, 1fr); min-height: 720px; }
+    .teams-rail { background: var(--cp-surface-soft); border-right: 1px solid var(--cp-border); padding: 18px 10px; text-align: center; color: var(--cp-text-muted); }
+    .teams-nav { border-right: 1px solid var(--cp-border); padding: 20px 14px; }
+    .teams-nav h2 { margin: 0 0 18px; font-size: 18px; }
+    .teams-main { display: flex; flex-direction: column; min-width: 0; }
+    .teams-header { padding: 18px 22px; border-bottom: 1px solid var(--cp-border); }
+    .teams-thread { flex: 1; padding: 22px; display: grid; gap: 16px; align-content: start; background: var(--cp-bg-elevated); }
+    .message { max-width: 760px; border: 1px solid var(--cp-border); border-radius: 16px; background: var(--cp-surface); padding: 16px; }
+    .message.from-user { justify-self: end; background: var(--cp-accent-soft); }
+    .teams-compose { padding: 16px 22px; border-top: 1px solid var(--cp-border); background: var(--cp-surface); }
+    .compose-box { border: 1px solid var(--cp-border); border-radius: 0.625rem; padding: 12px; color: var(--cp-text-muted); }
     .hidden { display: none !important; }
     @media (max-width: 680px) {
       .stage { padding-top: 24px; }
@@ -163,6 +193,8 @@
       .browse-main { width: auto; margin-left: 0; padding: 20px 14px 50px; }
       .account { position: static; margin-top: 20px; }
       .content-card { padding: 22px; }
+      .drop-page, .teams-shell { display: block; }
+      .teams-rail, .teams-nav { display: none; }
     }
   </style>
 </head>
@@ -187,6 +219,72 @@
   <div id="browsePlaylist" class="browse">
     <aside class="side-nav"><div class="brand">AI Skills Navigator</div><div class="side-group"><button data-route="#for-you">For you</button><button>Explore content</button><button class="active" data-route="#playlists">Skilling playlists</button><button>Credentials</button><button>Reporting</button><button>Training Services Partners</button></div><div class="account"><button>Feedback and help</button><button>William Nations</button></div></aside>
     <main class="browse-main"><div class="browse-shell"><a href="#for-you">← Back</a><div class="playlist-hero"><div class="meta">8 units　·　Module　·　38 mins</div><h1>Drive business value with Microsoft Copilot solutions</h1><p>Discover how Microsoft Copilot can transform the way your organization works. Learn how Copilot integrates with Microsoft 365 apps to automate routine tasks, deliver actionable insights, and support secure, compliant innovation.</p><div class="progress"><span style="display:block;width:25%;height:100%;background:var(--cp-accent)"></span></div><div class="playlist-actions"><button class="primary" data-route="#player">Jump to unit 3</button></div><div style="margin-top:20px;padding:16px;background:var(--cp-surface-soft);border-radius:8px;border-left:4px solid var(--cp-accent)"><p style="margin:0;font-size:14px;color:var(--cp-text-muted)"><strong>Microskilling in Teams</strong><br>SkillDrop appears only where a concept is useful enough to bring into a real work context.</p></div></div><div class="playlist-list"><div class="playlist-item"><h3>Introduction</h3><p>How Copilot helps organizations rethink how work gets done.</p></div><div class="playlist-item"><h3>Explore Copilot solutions</h3><p>Copilot Chat, Microsoft Copilot, and Copilot Studio.</p></div><div class="playlist-item"><h3>Explore Copilot experiences</h3><p>Copilot Chat scenario selected for SkillDrop.</p></div></div><div class="footer">Privacy &amp; Cookies　 Terms of Use　 Trademark　 © Microsoft 2026</div></div></main>
+  </div>
+  <div id="dropView" class="drop-view">
+    <div class="browser-shell">
+      <div class="browser-chrome"><span>● ● ●</span><span>← → ⟳</span><span class="url-pill">https://wbnations.github.io/SkillDrop/#drop</span></div>
+      <main class="drop-page">
+        <section class="drop-card">
+          <p class="eyebrow">SkillDrop from AI Skills Navigator</p>
+          <h1>Copilot Chat: fast answers and organizational context</h1>
+          <p>From <strong>Drive business value with Microsoft Copilot solutions</strong>, Unit 3: Explore Copilot experiences.</p>
+          <p>Imagine a regional manager needs a summary of last quarter's performance before a client call. Copilot Chat pulls data from reports and emails, delivering a concise, accurate summary in seconds.</p>
+          <h2>Quick check</h2>
+          <p>What is the biggest business value in the regional manager scenario?</p>
+          <div class="choice-list" id="dropChoices">
+            <button type="button" data-correct="true">A. A faster, context-aware summary before the client call</button>
+            <button type="button">B. A longer report with every source copied in</button>
+            <button type="button">C. A new place to manually search for documents</button>
+          </div>
+          <p id="dropFeedback" class="status"></p>
+          <h2>Apply it now</h2>
+          <p>Think of a client or stakeholder conversation this week. What quick summary would help you walk in better prepared?</p>
+          <div class="drop-actions">
+            <a class="link-button primary" id="fullTeamsCta" href="#">Open full Teams app experience</a>
+            <a class="link-button" id="workflowCta" href="#">Use lightweight workflow share</a>
+            <a class="link-button" href="#player">Continue full ASN course</a>
+          </div>
+        </section>
+        <aside class="drop-status-panel">
+          <h2>What this proves</h2>
+          <div class="metric-row"><span>Viewed before sign-in</span><strong>Yes</strong></div>
+          <div class="metric-row"><span>Practice moment</span><strong>Ready</strong></div>
+          <div class="metric-row"><span>Teams app path</span><strong>Installed</strong></div>
+          <div class="metric-row"><span>Workflow path</span><strong>Optional</strong></div>
+          <p style="margin-top:16px">This lightweight Drop can open in the Teams browser as a hosted web page. The full Teams app can use the same content with richer interaction and state.</p>
+        </aside>
+      </main>
+    </div>
+  </div>
+  <div id="teamsFullView" class="drop-view">
+    <div class="teams-shell">
+      <aside class="teams-rail"><strong>Teams</strong><br><br>Chat<br><br>Apps</aside>
+      <aside class="teams-nav">
+        <h2>SkillDrop</h2>
+        <button class="primary" type="button">Active Drop</button>
+        <p style="color:var(--cp-text-muted);margin-top:18px">Full app mode keeps the learner inside Teams while preserving practice, rating, and continuation signals.</p>
+      </aside>
+      <main class="teams-main">
+        <header class="teams-header"><strong>SkillDrop - Copilot Chat scenario</strong><br><span style="color:var(--cp-text-muted)">Drive business value with Microsoft Copilot solutions · Unit 3 of 8</span></header>
+        <section class="teams-thread">
+          <article class="message"><strong>SkillDrop</strong><p>Learning shouldn't pull you out of work. It should make the work better.</p></article>
+          <article class="message"><strong>Concept</strong><p>Copilot Chat gives fast, context-aware answers grounded in organizational data so decisions can move forward without switching across reports, email, and files.</p></article>
+          <article class="message"><strong>Scenario</strong><p>A regional manager needs last quarter's performance before a client call. Copilot Chat pulls from reports and emails to create a concise summary in seconds.</p></article>
+          <article class="message">
+            <strong>Practice check</strong>
+            <p>What is the biggest business value?</p>
+            <div class="choice-list" id="teamsChoices">
+              <button type="button" data-correct="true">A. Faster, context-aware preparation before the client call</button>
+              <button type="button">B. More manual search across documents</button>
+              <button type="button">C. A longer report to review later</button>
+            </div>
+            <p id="teamsFeedback" class="status"></p>
+          </article>
+          <article class="message from-user"><strong>Next action</strong><p id="teamsProgress">Waiting for learner response.</p></article>
+        </section>
+        <footer class="teams-compose"><div class="compose-box">Continue in ASN · Share Drop · Save progress</div></footer>
+      </main>
+    </div>
   </div>
   <div id="playerView" class="player hidden">
     <header class="topbar">
@@ -320,8 +418,11 @@
     function showRoute() {
       const route = window.location.hash || "#for-you";
       document.querySelectorAll(".browse").forEach(view => view.classList.remove("active"));
+      document.querySelectorAll(".drop-view").forEach(view => view.classList.remove("active"));
       document.getElementById("playerView").classList.add("hidden");
       if (route === "#player") document.getElementById("playerView").classList.remove("hidden");
+      else if (route === "#drop") document.getElementById("dropView").classList.add("active");
+      else if (route === "#teams-full") document.getElementById("teamsFullView").classList.add("active");
       else if (route === "#playlists") document.getElementById("browsePlaylists").classList.add("active");
       else if (route === "#playlist") document.getElementById("browsePlaylist").classList.add("active");
       else document.getElementById("browseForYou").classList.add("active");
@@ -331,64 +432,30 @@
     showRoute();
     render();
     async function launchSkillDrop(unit) {
-      const skillDropItem = {
-        Title: `${unit.title} - SkillDrop`,
-        PlaylistName: "Drive business value with Microsoft Copilot solutions",
-        RecipientEmail: "william.nations@microsoft.com",
-        NuggetQuestion: unit.drop.question,
-        ChoiceA: unit.drop.choices[0],
-        ChoiceB: unit.drop.choices[1],
-        ChoiceC: unit.drop.choices[2],
-        CorrectChoice: unit.drop.correct,
-        Fact1Title: "Course",
-        Fact1Value: "Drive business value with Microsoft Copilot solutions",
-        Fact2Title: "Concept",
-        Fact2Value: "Copilot Chat can summarize work context from reports and emails in seconds.",
-        Fact3Title: "Source",
-        Fact3Value: `AI Skills Navigator · ${unit.title}`,
-        Fact4Title: "Practice",
-        Fact4Value: "Apply the scenario to a real client or stakeholder conversation.",
-        ScenarioPrompt: unit.drop.practice
-      };
-       
-      // POST to SharePoint to trigger the flow
-      const sharePointSiteUrl = "https://microsoft.sharepoint.com/sites/skilldrop-team-42dbe9";
-      const listId = "77a33ccb-6605-47e5-afa2-aff1e06b4c01";
-      const graphEndpoint = `${sharePointSiteUrl}/_api/lists('${listId}')/items`;
-       
-      try {
-        // Call the proxy server which will trigger the Power Automate flow
-        const proxyEndpoint = "http://127.0.0.1:8764/skilldrop";
-        const response = await fetch(proxyEndpoint, {
-          method: "POST",
-          headers: {
-            "Accept": "application/json",
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify(skillDropItem)
-        });
-        const result = await response.json().catch(() => ({}));
-
-        if (response.ok && result.status === "success") {
-          alert("SkillDrop launched. Check Teams for the workflow card.");
-          console.log("SkillDrop item created:", skillDropItem);
-          skillDropStatus = " Sent to Teams";
-          document.getElementById("dropStatus").textContent = skillDropStatus;
-        } else {
-          console.log("Response status:", response.status);
-          alert(result.message || "SkillDrop workflow is not connected in this demo environment.");
-          console.log("SkillDrop Payload:", skillDropItem);
-          skillDropStatus = " Workflow not connected";
-          document.getElementById("dropStatus").textContent = skillDropStatus;
-        }
-      } catch (err) {
-        console.error("SkillDrop workflow handoff unavailable:", err);
-        console.log("SkillDrop Payload would send:", skillDropItem);
-        alert("Workflow connector is not running. For the demo, start proxy-server.py or configure a hosted workflow endpoint before sending to Teams.");
-        skillDropStatus = " Workflow not connected";
-        document.getElementById("dropStatus").textContent = skillDropStatus;
-      }
+      skillDropStatus = " Opening hosted Drop";
+      document.getElementById("dropStatus").textContent = skillDropStatus;
+      window.location.hash = "drop";
     }
+    const dropUrl = "https://wbnations.github.io/SkillDrop/#drop";
+    const fullTeamsUrl = `https://teams.microsoft.com/l/entity/9c2ae80f-253c-4772-86d7-3ed5e1bc8cb2/skilldrop-full?webUrl=${encodeURIComponent("https://wbnations.github.io/SkillDrop/#teams-full")}&label=${encodeURIComponent("SkillDrop")}`;
+    const workflowShareUrl = `https://teams.microsoft.com/share?href=${encodeURIComponent(dropUrl)}&msgText=${encodeURIComponent("SkillDrop: Copilot Chat can help prepare for a client conversation with a faster, context-aware summary. Try this Drop.")}`;
+    document.getElementById("fullTeamsCta").href = fullTeamsUrl;
+    document.getElementById("workflowCta").href = workflowShareUrl;
+    function wireChoices(containerId, feedbackId, successText) {
+      const container = document.getElementById(containerId);
+      const feedback = document.getElementById(feedbackId);
+      container.querySelectorAll("button").forEach(button => {
+        button.addEventListener("click", () => {
+          container.querySelectorAll("button").forEach(choice => choice.classList.remove("selected"));
+          button.classList.add("selected");
+          feedback.textContent = button.dataset.correct ? successText : "Not quite. The strongest value is faster, context-aware preparation at the moment of need.";
+          const progress = document.getElementById("teamsProgress");
+          if (progress) progress.textContent = "Practice captured. Next: save progress, continue in ASN, or share the Drop.";
+        });
+      });
+    }
+    wireChoices("dropChoices", "dropFeedback", "Correct. The value is faster preparation with context from the work itself.");
+    wireChoices("teamsChoices", "teamsFeedback", "Correct. SkillDrop captured demonstrated understanding inside the Teams app experience.");
   </script>
 </body>
 </html>
