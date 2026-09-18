@@ -11,6 +11,7 @@ The current demo shows:
 - A richer Teams app route for the sideloaded full experience
 - A lightweight workflow-share path that uses Teams share instead of a backend
 - A runtime-configured Power Automate HTTP trigger path for sending a workflow card without committing secrets
+- A downloadable Copilot SkillDrop skill file for applying Unit 3 to the learner's own work context
 
 ## Run locally
 
@@ -88,6 +89,22 @@ https://wbnations.github.io/SkillDrop/
 https://wbnations.github.io/SkillDrop/#drop
 https://wbnations.github.io/SkillDrop/#teams-full
 ```
+
+## Copilot SkillDrop file
+
+Use this file when testing the Copilot handoff:
+
+```text
+skills/SkillDrop_CopilotChat.md
+```
+
+Recommended test flow:
+
+1. Open `https://wbnations.github.io/SkillDrop/#drop`
+2. Click **Copy Copilot SkillDrop prompt**
+3. Click **Open Copilot**
+4. Paste the prompt into Copilot
+5. Optionally download/upload `SkillDrop_CopilotChat.md` as a structured skill artifact
 
 Recommended Pages setting:
 

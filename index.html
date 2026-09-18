@@ -244,10 +244,14 @@
           <h2>Apply it now</h2>
           <p>Think of a client or stakeholder conversation this week. What quick summary would help you walk in better prepared?</p>
           <div class="drop-actions">
+            <button class="link-button primary" id="copySkillPrompt" type="button">Copy Copilot SkillDrop prompt</button>
+            <a class="link-button" id="downloadSkillFile" href="skills/SkillDrop_CopilotChat.md" download>Download skill file</a>
+            <a class="link-button" id="openCopilotCta" href="https://copilot.cloud.microsoft/chat/" target="_blank" rel="noreferrer">Open Copilot</a>
             <a class="link-button primary" id="fullTeamsCta" href="#">Open full Teams app experience</a>
             <a class="link-button" id="workflowCta" href="#">Use lightweight workflow share</a>
             <a class="link-button" href="#player">Continue full ASN course</a>
           </div>
+          <p id="skillPromptStatus" class="status" style="margin-top:10px"></p>
           <div class="workflow-config">
             <label for="workflowUrl">Power Automate workflow URL</label>
             <input id="workflowUrl" type="url" autocomplete="off" placeholder="Paste your HTTP trigger URL at demo time">
@@ -469,6 +473,30 @@
       fullExperienceUrl: fullTeamsUrl,
       footerCta: "Get the full SkillDrop experience with the ASN Teams app."
     };
+    const copilotSkillPrompt = `Run this SkillDrop.
+
+I am learning from AI Skills Navigator: Drive business value with Microsoft Copilot solutions, Unit 3: Explore Copilot experiences.
+
+The concept is Copilot Chat for fast answers and organizational context.
+
+Source scenario: Imagine a regional manager needs a summary of last quarter's performance before a client call. Copilot Chat pulls data from reports and emails, delivering a concise, accurate summary in seconds.
+
+Coach me through applying this to my work. First ask me a few short questions:
+1. What upcoming conversation, meeting, client call, or stakeholder check-in am I preparing for?
+2. What decision or outcome do I need to be ready for?
+3. Which sources would Copilot need to summarize, such as reports, emails, meeting notes, or files?
+
+Then create a reusable Copilot Chat prompt I can use. Do not ask me to share confidential details. Keep the guidance short, practical, and tied to the course learning objective. End with one suggested way to measure whether the skill helped.`;
+    document.getElementById("copySkillPrompt").addEventListener("click", async () => {
+      const status = document.getElementById("skillPromptStatus");
+      try {
+        await navigator.clipboard.writeText(copilotSkillPrompt);
+        status.textContent = "Prompt copied. Open Copilot and paste it to start the SkillDrop coaching flow.";
+      } catch (error) {
+        console.error("Copy prompt failed", error);
+        status.textContent = "Copy failed. Download the skill file and upload or paste its starter prompt into Copilot.";
+      }
+    });
     document.getElementById("sendWorkflowCard").addEventListener("click", async () => {
       const url = document.getElementById("workflowUrl").value.trim();
       const status = document.getElementById("workflowStatus");
