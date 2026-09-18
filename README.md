@@ -1,18 +1,20 @@
 # SkillDrop
 
-SkillDrop is a hackathon prototype for bringing focused AI Skills Navigator learning moments into Microsoft Teams.
+Today, learners are busy and often cannot commit to a full module in one sitting. They may also be asked to sign in and navigate before they have experienced any value. We believe these barriers can suppress starts and repeat participation.
 
-The current demo shows:
+SkillDrop tests a simpler approach: a colleague shares one focused, role-relevant lesson directly in Microsoft Teams. No account is required to read it, practice one idea, or get immediate value. The learner can then return to work and continue learning later at their own pace. Only after value has been delivered are they invited to save progress with one click using Microsoft sign-in.
 
-- An AI Skills Navigator-style sandbox with a highlighted SkillDrop demo path
-- A focused **Drive business value with Microsoft Copilot solutions** demo flow
-- A Unit 3 SkillDrop action for bringing the Copilot Chat scenario into Copilot
-- A hosted lightweight Drop route that can open in the Teams browser
-- A richer Teams app route for the sideloaded full experience
-- A lightweight workflow-share path that uses Teams share instead of a backend
-- A downloadable Copilot SkillDrop skill file for applying Unit 3 to the learner's own work context
-- A return-to-ASN results page with Frontier Points
-- A sample admin dashboard for UTM behavior, Copilot handoff signals, and share-driven registrations
+SkillDrop repurposes existing AI Skills Navigator (ASN) content into self-contained Drops. Structured modules already contain learning-objective chunks; long-form videos and webinars can be segmented automatically from their transcripts. This creates short learning moments without requiring new content authoring from the ASN team.
+
+Each Drop goes beyond passive consumption. It can include a short practice task or knowledge check that asks the learner to demonstrate what they understood. A later follow-up--potentially weeks or months afterward--asks how the skill worked in practice: what they applied, what changed, and whether it produced meaningful business value. The learner's response creates evidence connecting skilling to real work outcomes, not just course completion.
+
+The experience is instrumented across the full loop: content-led signup, practice completion, return behavior, peer sharing, organizational spread, application, and longer-term perceived value. SkillDrop turns ASN content into a measurable path from immediate learning, to behavior change, to potential business impact.
+
+**SkillDrop: Skill at your pace. Stay in your flow.**
+
+## Current demo
+
+The current demo shows an ASN-style course experience, a Unit 3 SkillDrop Copilot handoff, a downloadable skill file, a return-to-ASN results page with Frontier Points, and an ASN business-leader dashboard for UTM behavior, learner outcomes, Copilot handoff signals, and share-driven registrations.
 
 ## Run locally
 
